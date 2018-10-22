@@ -28,6 +28,7 @@ elif reset_button==False:
 每次随机数据暂存内存，需要的话点击“保存”按钮写入到文件里，下次打开再点击读取。
 '''
 
+'''--------------------------------不需要这个定义函数来写入文件了，现在暂时以字典形式存放在内存，在点击“保存”按钮后才写入数据文件----------
 def text_in_txt(msg):#定义函数用于写入数据到数据文件里
     full_path='D://old_no.txt'#数据文件位置&文件名
     file=open(full_path,'a')#打开数据文件进入写入状态
@@ -35,6 +36,7 @@ def text_in_txt(msg):#定义函数用于写入数据到数据文件里
     file.write('\n')#输入回车，让下次的随机数据输入到下一行
     file.close()#文件打开了就必须要关闭
     print('内容写入完毕:'+str(random_no))#提示文件写入完毕并显示写入的数据内容
+'''
 #注意——————————上面的random_no是字典函数，在按下“保存”按钮后将内存中的随机数据写入数据保存文件，否则留在内存不保存——————————注意
  
 min_no_input=input('请输入想随机的起始数字:')#提示输入数据
@@ -54,7 +56,7 @@ while min==False or max==False or float(min_no_input)>=float(max_no_input) :#如
 min_no=round(float(min_no_input))#由于input函数输入的是str字符串型，必须转换为整数型才能进行随机运算，直接用int转换的话提示错误，所以先用float转换为浮点型，然后再用round取整去小数点
 max_no=round(float(max_no_input))
 random_no=random.randint(min_no,max_no)#产生范围内的随机数
-text_in_txt(random_no)#通过前面定义的函数text_in_tex传递数据并写入数据文件
+#text_in_txt(random_no)#通过前面定义的函数text_in_tex传递数据并写入数据文件---------------不需要了
 
 #取消上面数据写入数据文件内再提取比较方法，用Python的字典：字典是另一种可变容器模型，且可存储任意类型对象。
 #利用字典存储数据，用字典包含的内置方法“dict.get(key, default=None)返回指定键的值，如果值不在字典中返回default值”或者“dict.has_key(key)如果键在字典dict里返回true，否则返回false”来判断是否要储存进字典
