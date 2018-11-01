@@ -23,20 +23,24 @@ else:  # 如果上面判断语句没发现IOError这个错误信息，则运行�
         nut = linecache.getline('D://old_no.txt', 2)  # 读取文件的第二行并赋值给'nut'
         if nut == '':  # 如果'nut'的值为空白，则
             list_no.append(0)  # 给列表赋值“0”，这样就不会在后面eval函数转义时出错
-            print('第二行是空的')
-            '''
-            !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!想办法去掉列表第一个0!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            '''
+            for line in file_read.readlines():  # 读取文件内容并且用reallines()函数生成列表形式
+                list_no.append(list(map(int, line.split(','))))   # 将每行内容添加进列表，用'，'隔开，这样生成的列表里面每个字符都是子列表
+            list_no_change = str(list_no).replace('[', '').replace(']', '').replace(' ', '')  # 用replace函数将子列表的"["&"]"&"空格"去掉，但是列表每个值还是字符串形式
+            list_no_ok = list(eval(list_no_change))  # 应用强大的eval函数转义将字符串型转换成数据型，然后再将转义后的列表用list函数生成列表，再保存替换原来的列表中
+            list_no_ok.sort()  # 列表按小到大排序
+            del list_no_ok[0]  # 删除前面为了保护eval函数转义而添加的“0”
+            set_no = set(list_no_ok)  # 将列表转换为集合，集合是无序的，所以下一行的输出不用集合，而用上一行排好序的列表
+            print('之前保存的数据为:{}'.format(list_no_ok))  # 输出前面排好序的列表
+            file_read.close()  # 文件打开了就必须要关闭-----------------------------自此，成功将文件内容读出并转换为int格式的集合-------------------------
         else:
-            pass
-        for line in file_read.readlines():  # 读取文件内容并且用reallines()函数生成列表形式
-            list_no.append(list(map(int, line.split(','))))   # 将每行内容添加进列表，用'，'隔开，这样生成的列表里面每个字符都是子列表
-        list_no_change = str(list_no).replace('[', '').replace(']', '').replace(' ', '')  # 用replace函数将子列表的"["&"]"&"空格"去掉，但是列表每个值还是字符串形式
-        list_no_ok = list(eval(list_no_change))  # 应用强大的eval函数转义将字符串型转换成数据型，然后再将转义后的列表用list函数生成列表，再保存替换原来的列表中
-        list_no_ok.sort()  # 列表按小到大排序
-        set_no = set(list_no_ok)  # 将列表转换为集合，集合是无序的，所以下一行的输出不用集合，而用上一行排好序的列表
-        print('之前保存的数据为:{}'.format(list_no_ok))  # 输出前面排好序的列表
-        file_read.close()  # 文件打开了就必须要关闭-----------------------------自此，成功将文件内容读出并转换为int格式的集合-------------------------
+            for line in file_read.readlines():  # 读取文件内容并且用reallines()函数生成列表形式
+                list_no.append(list(map(int, line.split(','))))   # 将每行内容添加进列表，用'，'隔开，这样生成的列表里面每个字符都是子列表
+            list_no_change = str(list_no).replace('[', '').replace(']', '').replace(' ', '')  # 用replace函数将子列表的"["&"]"&"空格"去掉，但是列表每个值还是字符串形式
+            list_no_ok = list(eval(list_no_change))  # 应用强大的eval函数转义将字符串型转换成数据型，然后再将转义后的列表用list函数生成列表，再保存替换原来的列表中
+            list_no_ok.sort()  # 列表按小到大排序
+            set_no = set(list_no_ok)  # 将列表转换为集合，集合是无序的，所以下一行的输出不用集合，而用上一行排好序的列表
+            print('之前保存的数据为:{}'.format(list_no_ok))  # 输出前面排好序的列表
+            file_read.close()  # 文件打开了就必须要关闭-----------------------------自此，成功将文件内容读出并转换为int格式的集合-------------------------
     else:  # 判断文件内容为空，直接到输入起始数字位置开始
         pass
 
