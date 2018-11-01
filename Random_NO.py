@@ -1,6 +1,7 @@
 # coding: UTF-8
 import random  # 导入随机函数random模块，这样下面才能使用random函数产生随机数
 import os  # 导入os模块，os模块包含普遍的操作系统功能
+import linecache  # 该模块允许从任何文件里得到任何的行，并且使用缓存进行优化，常见的情况是从单个文件读取多行。
 
 set_no = set()  # 生成空白集合，否则后面生成的随机数无法合法写入集合，因为集合还没有被定义
 
@@ -19,12 +20,18 @@ else:  # 如果上面判断语句没发现IOError这个错误信息，则运行�
     if size != 0:  # 判断文件内容不为空，则打开文件读取内容并转化成int格式集合
         file_read = open('D://old_no.txt')  # 再次打开文件读取文件内容，如果直接用file_read的话，内容为空，因为前面已经使用了
         list_no = []  # 建立空白列表
+        nut = linecache.getline('D://old_no.txt', 2)  # 读取文件的第二行并赋值给'nut'
+        if nut == '':  # 如果'nut'的值为空白，则
+            list_no.append(0)  # 给列表赋值“0”，这样就不会在后面eval函数转义时出错
+            print('第二行是空的')
+            '''
+            !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!想办法去掉列表第一个0!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            '''
+        else:
+            pass
         for line in file_read.readlines():  # 读取文件内容并且用reallines()函数生成列表形式
             list_no.append(list(map(int, line.split(','))))   # 将每行内容添加进列表，用'，'隔开，这样生成的列表里面每个字符都是子列表
         list_no_change = str(list_no).replace('[', '').replace(']', '').replace(' ', '')  # 用replace函数将子列表的"["&"]"&"空格"去掉，但是列表每个值还是字符串形式
-        '''
-        !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!最大的问题在这，只有一行数据时，第二行是空的，这样下面一句代码就会出错!!!!!!!!!!!!!!!!!!!
-        '''
         list_no_ok = list(eval(list_no_change))  # 应用强大的eval函数转义将字符串型转换成数据型，然后再将转义后的列表用list函数生成列表，再保存替换原来的列表中
         list_no_ok.sort()  # 列表按小到大排序
         set_no = set(list_no_ok)  # 将列表转换为集合，集合是无序的，所以下一行的输出不用集合，而用上一行排好序的列表
