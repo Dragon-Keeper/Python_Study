@@ -7,6 +7,7 @@ from kivy.lang import Builder
 from kivy.graphics import Color, Rectangle # 为背景添加颜色
 
 
+
 Builder.load_string('''
 <MyLayout>: #  kv代码中被<>包裹住的是某个class的名字，这个class需在python代码中声明，它们代表同一个class。
 #    FloatLayout:
@@ -98,39 +99,58 @@ Builder.load_string('''
                 pos:2, 46
                 size: 334, 1
 
+#  在输入框下生成一根线提示输入，Line函数必须在canvas画布函数下才行
+            Line:
+                points: [126, 7, 172, 7]
+                width:1
+            Line:
+                points: [232, 7, 278, 7]
+                width:1
         Label:
-            text: 'RESET'
-            font_size:13
+            text: 'Clear'
+            font_size:18
             pos:15, 20
             size_hint: .06, .01
             color: 0, 0, 0, 1
+
         Label:
             text: 'Min_No:'
             font_size:13
-            pos:78, 20
+            pos:74, 20
             size_hint: .06, .01
             color: 0, 0, 0, 1
+
+# 通过设置background_normal和background_active为空将输入框边框取消
         TextInput:
             id: my_textinput1 #  设定id为my_textinput，方便后续调用
-            font_size:13
-            pos:128, 8
-            size_hint: .05, .18
+            font_size:16
+            pos:120, 8
+            size_hint: .07, .18
             #  text: 'Min' #  定义默认的文本内容
+            multiline: False #  设置输入框为单行，不能换行
+            background_normal:'' #  输入框未激活时TextInput的背景图像
+            background_active:'' #  输入框激活时TextInput的背景图像
+
         Label:
             text: 'Max_No:'
             font_size:13
             pos:178, 20
             size_hint: .06, .01
             color: 0, 0, 0, 1
+
         TextInput:
             id: my_textinput2 #  设定id为my_textinput，方便后续调用
-            font_size:13
-            pos:228, 8
-            size_hint: .05, .18
+            font_size:16
+            pos:225, 8
+            size_hint: .07, .18
             #  text: 'Max' #  定义默认的文本内容
+            multiline: False
+            background_normal:'' #  输入框未激活时TextInput的背景图像
+            background_active:'' #  输入框激活时TextInput的背景图像
+
         Label:
-            text: 'SET'
-            font_size:13
+            text: 'Set'
+            font_size:18
             pos:280, 20
             size_hint: .06, .01
             color: 0, 0, 0, 1
