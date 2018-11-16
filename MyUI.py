@@ -46,7 +46,7 @@ Builder.load_string('''
                 pos:2, 200
                 size: 334, 398
         Label:
-            text: 'Press To Random NO.'
+            text: 'Press Here To Random NO.'
             font_size:16
             pos:90, 210
             size_hint: .19, .055
@@ -100,11 +100,11 @@ Builder.load_string('''
                 size: 334, 1
 
 #  在输入框下生成一根线提示输入，Line函数必须在canvas画布函数下才行
-            Line:
-                points: [126, 7, 172, 7]
+            Line: #  Min_No
+                points: [126, 8, 172, 8]
                 width:1
-            Line:
-                points: [232, 7, 278, 7]
+            Line: #  Max_No
+                points: [232, 8, 278, 8]
                 width:1
         Label:
             text: 'Clear'
@@ -114,9 +114,9 @@ Builder.load_string('''
             color: 0, 0, 0, 1
 
         Label:
-            text: 'Min_No:'
-            font_size:13
-            pos:74, 20
+            text: 'Min:'
+            font_size:18
+            pos:81, 20
             size_hint: .06, .01
             color: 0, 0, 0, 1
 
@@ -132,9 +132,9 @@ Builder.load_string('''
             background_active:'' #  输入框激活时TextInput的背景图像
 
         Label:
-            text: 'Max_No:'
-            font_size:13
-            pos:178, 20
+            text: 'Max:'
+            font_size:18
+            pos:184, 20
             size_hint: .06, .01
             color: 0, 0, 0, 1
 
