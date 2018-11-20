@@ -59,32 +59,30 @@ Builder.load_string('''
 
 #  以下为显示历史数据画布，为了指纹按钮能浮现在历史数据画布上，需要将指纹按钮所在的随机数结果画布拍到后面，拥有更高的显示优先级
     FloatLayout:
-        canvas:
+        canvas.before:
             Color:
                 rgba: 0.05, 0.29, 0.64, 1 # 前面三个对应红、绿、蓝，最后一个为透明度80%，所有值为0-1之间
             Rectangle:
-                pos:7, 55
-                size: 324, 138
-            #  用矩形函数画一条线来填补下面画圆角时上面两个角弧度为零时出现的两个缺口
-            Rectangle:
-                pos:2, 193
-                size: 334, 5
-            Line: #  画线函数画一个圆角
-                #  前两位表示矩形的左下角位置，三四位表示宽度和高度，5-8是两个边框之间的像素数（圆角度数），最后一位用于在每个角绘制圆弧的线段数（默认为30），越大越圆润
-                rounded_rectangle:7, 55, 324, 138, 3, 3, 0, 0, 30
-                #  宽度设置为以宽度为1时为中心，向两边扩展，如果width为50的话，就是向线两边扩展50的宽度
-                width:5
+                pos:2, 30
+                size: 334, 173
+        canvas.after:
+            Color:
+                rgba: 1, 1, 1, 1 # 前面三个对应红、绿、蓝，最后一个为透明度100%，所有值为0-1之间
+            #  功能键上面的的线条
+            Line:
+                points: [30, 193, 308, 193]
+                width:1.5
 
 #  以下为显示随机数结果画布
     FloatLayout:
         canvas:
             Color:
                 rgba: 0.13, 0.61, 0.96, 1 # 前面三个对应红、绿、蓝，最后一个为透明度80%，所有值为0-1之间
-            #  用画矩形函数画一个矩形填补下面圆角边框里面的颜色
             Rectangle:
                 pos:2, 193
                 size: 334, 346
-            #  导入图片
+
+        #  导入图片
         Button:
             background_normal: '2.png'
             background_down: '2.png'
@@ -125,90 +123,102 @@ Builder.load_string('''
 #  按钮、输入区画布白色背景
         canvas.before:
             Color:
-                rgba: 1, 1, 1, 1 # 前面三个对应红、绿、蓝，最后一个为透明度100%，所有值为0-1之间
+                rgba: 0.05, 0.29, 0.64, 1 # 前面三个对应红、绿、蓝，最后一个为透明度100%，所有值为0-1之间
+
+            #  用矩形函数画一条线来填补下面画圆角时上面两个角弧度为零时出现的两个缺口
             Rectangle:
-                pos:0, 0
-                size: 338, 50
+                pos:2, 55
+                size: 334, 25
+            Line: #  画线函数画一个圆角
+                #  前两位表示矩形的左下角位置，三四位表示宽度和高度，5-8是两个边框之间的像素数（圆角度数），最后一位用于在每个角绘制圆弧的线段数（默认为30），越大越圆润
+                rounded_rectangle:7, 25, 324, 30, 3, 3, 0, 0, 30
+                #  宽度设置为以宽度为1时为中心，向两边扩展，如果width为50的话，就是向线两边扩展50的宽度
+                width:5
 
 #  用画布来生成一条线
-        canvas.after:
+        canvas:
             Color:
-                rgba: 0, 0, 0, 1 # 前面三个对应红、绿、蓝，最后一个为透明度100%，所有值为0-1之间
-            #  用矩形画一条线
-            #Rectangle:
-            #    pos:2, 46
-            #    size: 334, 1
+                rgba: 1, 1, 1, 1 # 前面三个对应红、绿、蓝，最后一个为透明度100%，所有值为0-1之间
+            #  Random按钮旁的线条
             Line:
-                points: [2, 46, 334, 46]
-                width:0.5
+                points: [30, 60, 308, 60]
+                width:1.2
 
 #  在输入框下生成一根线提示输入，Line函数必须在canvas画布函数下才行
             Line: #  Min_No
-                points: [120, 8, 172, 8]
-                width:1
+                points: [120, 27, 172, 27]
+                width:1.2
             Line: #  Max_No
-                points: [226, 8, 278, 8]
-                width:1
+                points: [226, 27, 278, 27]
+                width:1.2
         Label:
             text: 'Clear'
             font_size:18
-            pos:25, 20
+            pos:25, 38
             #size_hint: .06, .01
             size_hint:None,None #  要使用确定的像素大小的话就要将大小比例参数关闭
             size:20.28, 0.5
-            color: 0, 0, 0, 1
+            color: 1, 1, 1, 1
 
         Label:
             text: 'Min:'
             font_size:18
-            pos:86, 20
+            pos:86, 38
             #size_hint: .06, .01
             size_hint:None,None #  要使用确定的像素大小的话就要将大小比例参数关闭
             size:20.28, 0.5
-            color: 0, 0, 0, 1
+            color: 1, 1, 1, 1
 
 # 通过设置background_normal和background_active为空将输入框边框取消
         TextInput:
             id: my_textinput1 #  设定id为my_textinput，方便后续调用
             font_size:18
-            pos:115, 6
+            pos:115, 27
             #size_hint: .07, .18
             size_hint:None,None #  要使用确定的像素大小的话就要将大小比例参数关闭
             size:62, 30
             #  text: 'Min' #  定义默认的文本内容
             multiline: False #  设置输入框为单行，不能换行
-            background_normal:'' #  输入框未激活时TextInput的背景图像
-            background_active:'' #  输入框激活时TextInput的背景图像
+            background_normal:'' #  输入框未激活时TextInput的背景图像，用空图片来屏蔽输入框边框
+            background_active:'' #  输入框激活时TextInput的背景图像，用空图片来屏蔽输入框边框
+            background_color:0.05, 0.29, 0.64, 1
+            padding_x:[1,0] #  设置X轴方向的对齐位移，后面的0没什么用
+            padding_y:[8,0] #  设置Y轴方向的对齐位移，后面的0没什么用
+            on_text: self.foreground_color = (1,1,1,1) #  当点击输入框时，将输入文字颜色设置为白色
 
         Label:
             text: 'Max:'
             font_size:18
-            pos:192, 20
+            pos:192, 38
             #size_hint: .06, .01
             size_hint:None,None #  要使用确定的像素大小的话就要将大小比例参数关闭
             size:20.28, 0.5
-            color: 0, 0, 0, 1
+            color: 1, 1, 1, 1
 
         TextInput:
             id: my_textinput2 #  设定id为my_textinput，方便后续调用
             font_size:18
-            pos:220, 6
+            pos:220, 27
             #size_hint: .07, .18
             size_hint:None,None #  要使用确定的像素大小的话就要将大小比例参数关闭
             size:62, 30
             #  text: 'Max' #  定义默认的文本内容
             multiline: False
-            background_normal:'' #  输入框未激活时TextInput的背景图像
-            background_active:'' #  输入框激活时TextInput的背景图像
+            background_normal:'' #  输入框未激活时TextInput的背景图像，用空图片来屏蔽输入框边框
+            background_active:'' #  输入框激活时TextInput的背景图像，用空图片来屏蔽输入框边框
+            background_color:0.05, 0.29, 0.64, 1
+            padding_x:[1,0] #  设置X轴方向的对齐位移，后面的0没什么用
+            padding_y:[8,0] #  设置Y轴方向的对齐位移，后面的0没什么用
+            on_text: self.foreground_color = (1,1,1,1) #  当点击输入框时，将输入文字颜色设置为白色
 
         Label:
             text: 'Set'
             font_size:18
-            pos:300, 20
+            pos:300, 38
             #size_hint: .06, .01
             size_hint:None,None #  要使用确定的像素大小的话就要将大小比例参数关闭
             size:20.28, 0.5
-            color: 0, 0, 0, 1
+            color: 1, 1, 1, 1
 ''')
 
 class MyLayout(BoxLayout): #  声明MyLayout，否则会报错：MyFloatLayout未定义
