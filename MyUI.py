@@ -45,6 +45,9 @@ Builder.load_string('''
             Rectangle:
                 pos:2, 200
                 size: 334, 398
+            Line: #  画线函数
+                #  前两位表示矩形的左下角位置，三四位表示宽度和高度，5-8是两个边框之间的像素数（圆角度数），最后一位用于在每个角绘制圆弧的线段数（默认为30），越大越圆润
+                rounded_rectangle:0, 0, 200, 200, 10, 20, 30, 40, 100
         Label:
             text: 'Press Here To Random NO.'
             font_size:16
