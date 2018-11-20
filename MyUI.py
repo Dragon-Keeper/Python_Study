@@ -4,7 +4,7 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.textinput import TextInput
 from kivy.uix.boxlayout import BoxLayout
 from kivy.lang import Builder
-from kivy.graphics import Color, Rectangle # 为背景添加颜色
+from kivy.graphics import Color, Rectangle # 为背景添加颜色，画矩形
 
 
 
@@ -42,14 +42,17 @@ Builder.load_string('''
         canvas:
             Color:
                 rgba: 0.38, 0.49, 0.55, 1 # 前面三个对应红、绿、蓝，最后一个为透明度80%，所有值为0-1之间
+            # 用画矩形函数画一个矩形填补下面圆角边框里面的颜色
             Rectangle:
-                pos:2, 200
-                size: 334, 398
+                pos:7, 193
+                size: 324, 366
             Line: #  画线函数
                 #  前两位表示矩形的左下角位置，三四位表示宽度和高度，5-8是两个边框之间的像素数（圆角度数），最后一位用于在每个角绘制圆弧的线段数（默认为30），越大越圆润
-                rounded_rectangle:0, 0, 200, 200, 10, 20, 30, 40, 100
+                rounded_rectangle:7, 193, 324, 366, 3, 3, 3, 3, 30
+                #  宽度设置为以宽度为1时为中心，向两边扩展，如果width为50的话，就是向线两边扩展50的宽度
+                width:5
         Label:
-            text: 'Press Here To Random NO.'
+            text: 'RAN         DOM'
             font_size:16
             pos:90, 210
             size_hint: .19, .055
@@ -61,8 +64,17 @@ Builder.load_string('''
             Color:
                 rgba: 0.27, 0.36, 0.4, 1 # 前面三个对应红、绿、蓝，最后一个为透明度80%，所有值为0-1之间
             Rectangle:
-                pos:2, 50
-                size: 334, 148
+                pos:7, 55
+                size: 324, 138
+            #  画一条线来填补下面画圆角时上面两个角弧度为零时出现的两个缺口
+            #Line:
+                points: [431, 8, 278, 8]
+                width:5
+            Line: #  画线函数
+                #  前两位表示矩形的左下角位置，三四位表示宽度和高度，5-8是两个边框之间的像素数（圆角度数），最后一位用于在每个角绘制圆弧的线段数（默认为30），越大越圆润
+                rounded_rectangle:7, 55, 324, 138, 3, 3, 0, 0, 30
+                #  宽度设置为以宽度为1时为中心，向两边扩展，如果width为50的话，就是向线两边扩展50的宽度
+                width:5
 
 #  以下为按钮、输入区画布
     FloatLayout:
