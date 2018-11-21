@@ -18,16 +18,7 @@ Builder.load_string('''
 #            font_size: 80
 #            size_hint_y: None
 #            on_text: root.color_change() #当文本变化时，调用函数。root表示最上层的类，本例中就是指MyLayout类。
-#    BoxLayout:
-#        orientation: 'horizontal'
-#        size_hint_y: None
-#        height: 150
-#        Label:
-#            text: 'Reset'
-#            font_size: 100
-#        Label:
-#            text: 'Save'
-#            font_size: 100
+
     orientation: 'vertical' #  定义竖直排布
 #  以下为背景画布
     FloatLayout:
@@ -103,25 +94,6 @@ Builder.load_string('''
 
 #  以下为按钮、输入区画布
     FloatLayout:
-
-#        Button:
-#            text: "Reset"
-#            font_size:12
-#            pos_hint: {'x': .02, 'y': .01}#  与widget最左边边线距离为总长的3%位置，与widget最底边边线距离为总长的1%位置
-#            size_hint: .1, .056 # widget最左边边线的1%长，widget最底边边线的5.6%高
-#            background_color:0.0, 0.6, 0.66, 1 #  设置按钮text颜色(用手机上的HSV颜色对应找到vec3颜色)
-#        Button:
-#            text: "Save"
-#            font_size:12
-#            pos_hint: {'x': .16, 'y': .01}
-#            size_hint: .1, .056
-#            background_color:0.0, 0.6, 0.66, 1
-#        Button:
-#            text: "Set"
-#            font_size:12
-#            pos_hint: {'x': .88, 'y': .01}
-#            size_hint: .1, .056
-#           background_color:0.0, 0.6, 0.66, 1
 
 #  按钮、输入区画布白色背景
         canvas.before:
