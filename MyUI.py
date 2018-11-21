@@ -8,6 +8,7 @@ from kivy.graphics import Color, Rectangle # 为背景添加颜色，画矩形
 from kivy.config import Config
 
 
+
 Builder.load_string('''
 <MyLayout>: #  kv代码中被<>包裹住的是某个class的名字，这个class需在python代码中声明，它们代表同一个class。
 #    FloatLayout:
@@ -35,7 +36,7 @@ Builder.load_string('''
                 rgba: 1, 1, 1, 1 # 前面三个对应红、绿、蓝，最后一个为透明度80%，所有值为0-1之间
             Rectangle:
                 pos:0, 0
-                size:338, 600
+                size:337.5, 600
 
 #  标题画布上面留白20的高度给电量、时间导航栏
 
@@ -86,16 +87,18 @@ Builder.load_string('''
         Button:
             background_normal: '2.png'
             background_down: '2.png'
-            pos:137, 170
+            #pos:137, 170
+            pos_hint:{'x':.172, 'y':.42}
             size_hint:None,None #  要使用确定的像素大小的话就要将大小比例参数关闭
             size:60, 60
         Label:
             text: 'RAN             DOM'
             font_size:22
-            pos:94, 202
+            #pos:94, 202
+            #  pos_hint是一个字典，默认为空。正如size_hint, 布局对使用pos_hint分别对待，通常你可以添加任何pos特征值(x, y, left, top, center_x, center_y)
+            pos_hint:{'x':.15, 'y':.3}
             #size_hint: .19, .055
             size_hint:None,None #  要使用确定的像素大小的话就要将大小比例参数关闭
-            size:150, 10
             color: 1, 1, 1, 1
 
 #  以下为按钮、输入区画布
