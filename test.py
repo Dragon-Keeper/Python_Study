@@ -14,23 +14,10 @@ Builder.load_string('''
     BoxLayout:
         orientation: "vertical"
         padding : 20, 20
-        Label:
-            text: "Number"
-            text_size: self.size
-            valign: 'bottom'
-            halign: 'right'
-            size_hint_x: .2
-
-        TextInput:
-            size_hint_x: .2
-            id : test
-            #padding_x:[10,0]
-            #padding_y:[10,0]
-
         BoxLayout:
             orientation: "horizontal"
-            padding: 10, 10
-            spacing: 10, 10
+            padding: 10, 10 #  padding:控制的是widget和窗口边缘的间隔
+            spacing: 10, 10 #  spacing: 控制的是各个widget之间的间隔
             size_hint_x: .6
 
             Label:
