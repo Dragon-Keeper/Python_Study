@@ -70,35 +70,40 @@ else:
         pass
     ----------------------------------------------------------------以上为多行注释来屏蔽GUI界面的功能-----------------------------------------
 '''
+# -----------------------------------------------将随机数的产生过程做成函数--------------------------------------------------
+def ran_no(min_no_input,max_no_input):
+    min = min_no_input.isnumeric()  # 检测输入的数据是否全部由数字组成
+    max = max_no_input.isnumeric()
+    while min is False or max is False or float(min_no_input) >= float(max_no_input):  # 如果输入的数字不是全部由数字组成或者起始数字大于等于结尾数字，则进入循环--注意：由于min_no_input和max_no_input由input函数赋值，是str字符串格式，所以要比较他们的大小，必须先把格式化为浮点数型
+        print('你好，你输入的内容不是整数，或者起始数字大于等于结尾数字，请重新输入。')
+        min_no_input = input('请输入想随机的起始数字:')  # 提示输入数据
+        max_no_input = input('请输入想随机的结尾数字:')
+        min = min_no_input.isnumeric()
+        max = max_no_input.isnumeric()  # 检测输入的数据是否全部由数字组成
+        if min is True and max is True and float(min_no_input) < float(max_no_input):  # 如果输入的数字全部由数字组成且起始数字小于结尾数字
+            break  # 退出循环
+    min_no = round(float(min_no_input))  # 由于input函数输入的是str字符串型，必须转换为整数型才能进行随机运算，直接用int转换的话提示错误，所以先用float转换为浮点型，然后再用round取整去小数点
+    max_no = round(float(max_no_input))
+    random_no = random.randint(min_no, max_no)  # 产生范围内的随机数
+    if random_no not in set_no:  # 判断随机数是否已存在，如果不存在则写入集合
+        print('新的随机数生成：' + str(random_no))  # 调试用的输出
+        #  set_no.add(random_no)  # 随机数写入集合
+    else:
+        while random_no in set_no:  # 判断随机数是否已存在，如果存在则重新产生随机数直到不存在
+            print(str(random_no) + '：已经存在')  # 调试用的输出
+            random_no = random.randint(min_no, max_no)  # 产生范围内的随机数
+        else:  # 经过循环重新产生不存在的随机数，然后写入集合
+            print('新的随机数生成：' + str(random_no))  # 调试用的输出
+            #  set_no.add(random_no)  # 随机数写入集合
+    return random_no
+# -----------------------------------------------将随机数的产生过程做成函数--------------------------------------------------
+
 
 min_no_input = input('请输入想随机的起始数字:')  # 提示输入数据
 max_no_input = input('请输入想随机的结尾数字:')
-min = min_no_input.isnumeric()  # 检测输入的数据是否全部由数字组成
-max = max_no_input.isnumeric()
+r_n = ran_no(min_no_input, max_no_input)  # 调用随机数函数并返回随机数然后赋值给r_n变量保存
+set_no.add(r_n)  # 随机数写入集合
 
-while min is False or max is False or float(min_no_input) >= float(max_no_input):  # 如果输入的数字不是全部由数字组成或者起始数字大于等于结尾数字，则进入循环--注意：由于min_no_input和max_no_input由input函数赋值，是str字符串格式，所以要比较他们的大小，必须先把格式化为浮点数型
-    print('你好，你输入的内容不是整数，或者起始数字大于等于结尾数字，请重新输入。')
-    min_no_input = input('请输入想随机的起始数字:')  # 提示输入数据
-    max_no_input = input('请输入想随机的结尾数字:')
-    min = min_no_input.isnumeric()
-    max = max_no_input.isnumeric()  # 检测输入的数据是否全部由数字组成
-    if min is True and max is True and float(min_no_input) < float(max_no_input):  # 如果输入的数字全部由数字组成且起始数字小于结尾数字
-        break  # 退出循环
-
-min_no = round(float(min_no_input))  # 由于input函数输入的是str字符串型，必须转换为整数型才能进行随机运算，直接用int转换的话提示错误，所以先用float转换为浮点型，然后再用round取整去小数点
-max_no = round(float(max_no_input))
-random_no = random.randint(min_no, max_no)  # 产生范围内的随机数
-
-if random_no not in set_no:  # 判断随机数是否已存在，如果不存在则写入集合
-    print('新的随机数生成：' + str(random_no))  # 调试用的输出
-    set_no.add(random_no)  # 随机数写入集合
-else:
-    while random_no in set_no:  # 判断随机数是否已存在，如果存在则重新产生随机数直到不存在
-        print(str(random_no) + '：已经存在')  # 调试用的输出
-        random_no = random.randint(min_no, max_no)  # 产生范围内的随机数
-    else:  # 经过循环重新产生不存在的随机数，然后写入集合
-        print('新的随机数生成：' + str(random_no))  # 调试用的输出
-        set_no.add(random_no)  # 随机数写入集合
 # -----------------------------------------------自此，成功产生随机数并写入集合--------------------------------------------------
 '''
      -----------------------------------------------每次点击“随机”按钮运行下面代码产生随机数并写入集合内-----------------------------
