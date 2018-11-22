@@ -7,7 +7,25 @@ from kivy.lang import Builder
 from kivy.graphics import Color, Rectangle # 为背景添加颜色，画矩形
 from kivy.config import Config
 
+def on_touch_down(self, touch):
+    if self.collide_point(*touch.pos):
 
+        #如果触摸检测来自我们自己的部件，让我们捕获它。
+        touch.grab(self)
+        # 并响应这次触摸.
+        return True
+
+def on_touch_up(self, touch):
+    #这里，你不用检测触摸碰撞或类似操作，
+    #你仅需要检测是否它是一个捕获的触摸事件
+    if touch.grab_current is self:
+        #OK，当前触摸事件被派发给我们
+        #做一些感兴趣的操作
+        print('Hello world!')
+        #不要忘记释放掉，否则可能会有副作用
+        touch.ungrab(self)
+        #最后响应这次触摸
+        return True
 
 Builder.load_string('''
 <MyLayout>: #  kv代码中被<>包裹住的是某个class的名字，这个class需在python代码中声明，它们代表同一个class。
