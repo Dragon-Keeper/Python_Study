@@ -7,6 +7,7 @@ from kivy.graphics import Color, Ellipse, Line
 class MyPaintWidget(Widget):
 
     def on_touch_down(self, touch):
+        print('Hello')
         color = (random(), random(), random())
         with self.canvas:
             Color(*color)
