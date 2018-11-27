@@ -1,0 +1,151 @@
+#:kivy 1.10.1
+#:import kivy kivy
+
+<MyLayout>:
+    orientation: 'vertical'
+
+    FloatLayout:
+        canvas:
+            Color:
+                rgba: 1, 1, 1, 1
+            Rectangle:
+                pos:0, 0
+                size:337.5, 600
+
+    FloatLayout:
+        canvas:
+            Color:
+                rgba: 0.08, 0.41, 0.76, 1
+            Rectangle:
+                pos:7, 554
+                size: 324, 21
+
+            Rectangle:
+                pos:2, 534
+                size: 334, 25
+            Line:
+                rounded_rectangle:7, 554, 324, 21, 0, 0, 3, 3, 30
+                width:5
+
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba: 0.05, 0.29, 0.64, 1
+            Rectangle:
+                pos:2, 30
+                size: 334, 173
+        canvas.after:
+            Color:
+                rgba: 1, 1, 1, 1
+            Line:
+                points: [30, 192, 308, 192]
+                width:1.5
+
+    FloatLayout:
+        canvas:
+            Color:
+                rgba: 0.13, 0.61, 0.96, 1
+            Rectangle:
+                pos:2, 193
+                size: 334, 346
+
+        Button:
+            background_normal: '2.png'
+            background_down: '2.png'
+            pos_hint:{'x':.172, 'y':.42}
+            size_hint:None,None
+            size:60, 60
+        Label:
+            text: 'RAN             DOM'
+            font_size:22
+            pos_hint:{'x':.15, 'y':.3}
+            size_hint:None,None
+            color: 1, 1, 1, 1
+
+    FloatLayout:
+
+        canvas.before:
+            Color:
+                rgba: 0.05, 0.29, 0.64, 1
+
+            Rectangle:
+                pos:2, 55
+                size: 334, 25
+            Line:
+                rounded_rectangle:7, 25, 324, 30, 3, 3, 0, 0, 30
+                width:5
+
+        canvas:
+            Color:
+                rgba: 1, 1, 1, 1
+            Line:
+                points: [30, 60, 308, 60]
+                width:1.2
+
+            Line:
+                points: [120, 27, 172, 27]
+                width:1.2
+            Line: #  Max_No
+                points: [226, 27, 278, 27]
+                width:1.2
+        Label:
+            text: 'Clear'
+            font_size:18
+            pos:25, 38
+            #size_hint: .06, .01
+            size_hint:None,None
+            size:20.28, 0.5
+            color: 1, 1, 1, 1
+
+        Label:
+            text: 'Min:'
+            font_size:18
+            pos:86, 38
+            size_hint:None,None
+            size:20.28, 0.5
+            color: 1, 1, 1, 1
+
+        TextInput:
+            id: my_textinput1
+            font_size:18
+            pos:115, 27
+            size_hint:None,None
+            size:62, 30
+            multiline: False
+            background_normal:''
+            background_active:''
+            background_color:0.05, 0.29, 0.64, 1
+            padding_x:[1,0]
+            padding_y:[8,0]
+            on_text: self.foreground_color = (1,1,1,1)
+
+        Label:
+            text: 'Max:'
+            font_size:18
+            pos:192, 38
+            size_hint:None,None
+            size:20.28, 0.5
+            color: 1, 1, 1, 1
+
+        TextInput:
+            id: my_textinput2
+            font_size:18
+            pos:220, 27
+            #size_hint: .07, .18
+            size_hint:None,None
+            size:62, 30
+            multiline: False
+            background_normal:''
+            background_active:''
+            background_color:0.05, 0.29, 0.64, 1
+            padding_x:[1,0]
+            padding_y:[8,0]
+            on_text: self.foreground_color = (1,1,1,1)
+
+        Label:
+            text: 'Set'
+            font_size:18
+            pos:300, 38
+            size_hint:None,None
+            size:20.28, 0.5
+            color: 1, 1, 1, 1
