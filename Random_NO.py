@@ -91,9 +91,14 @@ def ran_no(min_no_input, max_no_input):
         print('新的随机数生成：' + str(random_no))  # 调试用的输出
         #  set_no.add(random_no)  # 随机数写入集合
     else:
+        Random_Times = 1  # 定义函数用来计算随机次数
         while random_no in set_no:  # 判断随机数是否已存在，如果存在则重新产生随机数直到不存在
             print(str(random_no) + '：已经存在')  # 调试用的输出
             random_no = random.randint(min_no, max_no)  # 产生范围内的随机数
+            Random_Times = Random_Times + 1  # 每次循环次数加一
+            Max_Random_Times = max_no**2  # 循环输入数值最大数的平方次数
+            if Random_Times > Max_Random_Times:  # 当循环次数大于输入数值最大数的平方次数时
+                break  # 退出循环，要求从新输入范围
         else:  # 经过循环重新产生不存在的随机数，然后写入集合
             print('新的随机数生成：' + str(random_no))  # 调试用的输出
             #  set_no.add(random_no)  # 随机数写入集合
