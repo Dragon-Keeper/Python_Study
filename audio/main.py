@@ -1,3 +1,10 @@
+from os.path import dirname, join, basename
+from glob import glob
+from kivy.properties import StringProperty, ObjectProperty, NumericProperty
+from kivy.core.audio import SoundLoader
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.button import Button
+from kivy.app import App
 '''
 Audio example
 =============
@@ -14,16 +21,8 @@ All the sounds are from the http://woolyss.com/chipmusic-samples.php
 import kivy
 kivy.require('1.0.8')
 
-from kivy.app import App
-from kivy.uix.button import Button
-from kivy.uix.boxlayout import BoxLayout
-from kivy.core.audio import SoundLoader
-from kivy.properties import StringProperty, ObjectProperty, NumericProperty
-from glob import glob
-from os.path import dirname, join, basename
 
-
-class AudioButton(Button): #  每一个class类对应kv文件里一个同类设计
+class AudioButton(Button):  # 每一个class类对应kv文件里一个同类设计
 
     filename = StringProperty(None)
     sound = ObjectProperty(None, allownone=True)
