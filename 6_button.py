@@ -22,7 +22,7 @@ class MyPaintWidget(Widget):  # 定义一个类
 class MyPaintApp(App):  # 定义一个类，继承App类
 
     def build(self):  # 实现它的build()方法，它能返回一个部件的实例（你的部件树的根部件）
-        parent = Widget()  # 定义父空间为Widget()
+        parent = Widget()  # 定义Widget()为父空间
         self.painter = MyPaintWidget()  # 定义painter承接MyPaintWidget()这个类的内容
         clearbtn = Button(text='Clear')  # 定义一个按键，并且上面文字为Clear，将它连接到clearbtn上
         # 将类clear_canvas(self, obj)被点击（on_release）事件绑定到按键Clear上
