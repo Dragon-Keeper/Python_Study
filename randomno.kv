@@ -31,18 +31,42 @@
 
 # history
     FloatLayout:
+
         canvas.before:
             Color:
                 rgba: 0.05, 0.29, 0.64, 1
+            Line:
+                rounded_rectangle:7, 7, 324, 20, 3, 3, 0, 0, 30
+                width:5
             Rectangle:
-                pos:2, 30
-                size: 334, 173
+                pos:2, 10
+                size: 334, 193
+
+        # Up Line
         canvas.after:
             Color:
                 rgba: 1, 1, 1, 1
             Line:
                 points: [30, 192, 308, 192]
                 width:1.5
+        Label:
+            text: root.his_no
+            font_size:15
+            pos:120, 93
+            size_hint:None,None
+            color: 1, 1, 1, 1
+            text_size:300, 90
+            halign:'left'
+            valign:'top'
+        Label:
+            text: root.his_no_sort
+            font_size:15
+            pos:120, 0
+            size_hint:None,None
+            color: 1, 1, 1, 1
+            text_size:300, 90
+            halign:'left'
+            valign:'top'
 
 # show_random_NO
     FloatLayout:
@@ -54,15 +78,26 @@
                 size: 334, 346
 
         Button:
+            id: set
             background_normal: '2.png'
             background_down: '2.png'
-            pos_hint:{'x':.172, 'y':.29}
+            # pos_hint:{'x':.172, 'y':.29}
+            pos:137, 180
             size_hint:None,None
             size:60, 60
+            on_press: root.confim()
+        #Label:
+        #    text: 'RAN             DOM'
+        #    font_size:22
+        #    # pos_hint:{'x':.15, 'y':.26}
+        #    pos:120, 153
+        #    size_hint:None,None
+        #    color: 1, 1, 1, 1
         Label:
-            text: 'RAN             DOM'
-            font_size:22
-            pos_hint:{'x':.15, 'y':.26}
+            text: root.ran_no
+            font_size:250
+            #pos_hint:{'x':.2, 'y':.56}
+            pos:120, 320
             size_hint:None,None
             color: 1, 1, 1, 1
 
@@ -71,88 +106,74 @@
         canvas.before:
             Color:
                 rgba: 0.05, 0.29, 0.64, 1
-
-            Rectangle:
-                pos:2, 55
-                size: 334, 25
-            Line:
-                rounded_rectangle:7, 25, 324, 30, 3, 3, 0, 0, 30
-                width:5
-
         canvas:
+            #Under Line
             Color:
                 rgba: 1, 1, 1, 1
             Line:
-                points: [30, 60, 308, 60]
+                points: [30, 98, 308, 98]
                 width:1.2
 
-            Line:
-                points: [120, 27, 172, 27]
-                width:1.2
+            Line: #  Min_No
+                points: [75, 196, 127, 196]
+                width:1
             Line: #  Max_No
-                points: [226, 27, 278, 27]
-                width:1.2
+                points: [206, 196, 258, 196]
+                width:1
 
-        Label:
+        Button:
             id: clear
             text: 'Clear'
             font_size:18
-            pos:25, 38
+            pos:15, 22
             size_hint:None,None
-            size:20.28, 0.5
+            size:50, 30
             color: 1, 1, 1, 1
-            on_press:
-
-        Label:
-            text: 'Min:'
-            font_size:18
-            pos:86, 38
-            size_hint:None,None
-            size:20.28, 0.5
-            color: 1, 1, 1, 1
+            background_color:0.05, 0.29, 0.64, .01
+            # on_press:root.confim2()
 
         TextInput:
-            id: my_textinput1
+            id: textinput_min
             font_size:18
-            pos:115, 27
+            pos:75, 197
             size_hint:None,None
-            size:62, 30
+            size:50, 30
             multiline: False
             background_normal:''
             background_active:''
-            background_color:0.05, 0.29, 0.64, 1
+            background_color:0.13, 0.61, 0.96, 1
             padding_x:[1,0]
             padding_y:[8,0]
             on_text: self.foreground_color = (1,1,1,1)
-
-        Label:
-            text: 'Max:'
-            font_size:18
-            pos:192, 38
-            size_hint:None,None
-            size:20.28, 0.5
-            color: 1, 1, 1, 1
+            input_filter:'int'
 
         TextInput:
-            id: my_textinput2
+            id: textinput_max
             font_size:18
-            pos:220, 27
+            pos:205, 197
             #size_hint: .07, .18
             size_hint:None,None
-            size:62, 30
+            size:50, 30
             multiline: False
             background_normal:''
             background_active:''
-            background_color:0.05, 0.29, 0.64, 1
+            background_color:0.13, 0.61, 0.96, 1
             padding_x:[1,0]
             padding_y:[8,0]
             on_text: self.foreground_color = (1,1,1,1)
+            input_filter:'int'
 
         Label:
-            id: set
-            text: 'Set'
+            text: 'Min'
             font_size:18
-            pos:300, 38
+            pos:92, 208
             size_hint:None,None
             size:20.28, 0.5
-            color: 1, 1, 1, 1
+            color: 1, 1, 1, .3
+        Label:
+            text: 'Max'
+            font_size:18
+            pos:223, 208
+            size_hint:None,None
+            size:20.28, 0.5
+            color: 1, 1, 1, .3
