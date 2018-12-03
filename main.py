@@ -81,6 +81,7 @@ class BackGround(FloatLayout):  # 这个类用于接收输入的赋值然后显�
         # 使用ids来访问带id标识的对象，将text_box赋值给text，而text_box取值自输入栏
         self.min_no_input = self.ids["textinput_min"].text
         self.max_no_input = self.ids["textinput_max"].text
+        # 下面这段判断语句用来将输入数据按大小赋值给随机函数，输入框不限制哪个输入大/小
         if self.min_no_input < self.max_no_input:
             min = self.min_no_input
             max = self.max_no_input
