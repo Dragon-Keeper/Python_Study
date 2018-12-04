@@ -89,13 +89,19 @@ class BackGround(FloatLayout):  # 这个类用于接收输入的赋值然后显�
             max = self.min_no_input
             min = self.max_no_input
         r_n = ran_no(min, max)
-        self.ran_no = str(r_n)
         set_no.add(r_n)  # 随机数写入集合
         list_set = list(set_no)  # 将集合转换成列表
-        self.his_no = self.his_no + '-' + str(r_n)  # 按随机数产生顺序显示随机结果
+        self.ran_no = str(r_n)  # 显示随机数
+        self.his_no = self.his_no + str(r_n) + '->'  # 按随机数产生顺序显示随机结果
         list_set.sort()  # 列表按小到大排序，这样输出到数据文件就是顺序的了
         self.his_no_sort = str(list_set).replace('[', '').replace(
             ']', '').replace(',', ' ').replace('\'', '')
+        list_set.clear()
+
+    def confim2(self):  # 用来将输入的内容显示在label上，关联button的on_press
+        self.ran_no = ' '
+        self.his_no_sort = ' '
+        self.his_no = ' '
 
 # -----------------------------以上为将输入框内容赋值给具体函数--------------------
 
