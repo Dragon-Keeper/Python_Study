@@ -1,0 +1,41 @@
+#:kivy 1.10.0
+#:import Factory kivy.factory.Factory
+
+<MainBox>:
+
+    SelectButton:
+        id: selectbutton
+        text: 'Select'
+        on_press: Factory.SelectPopup().open()
+
+    Button:
+        text: 'Ask'
+        background_color: (0,1,0,1) if selectbutton.selected else (1,0,0,1)
+
+<SelectPopup>:
+    title: 'Select from List'
+    auto_dismiss: False
+    on_dismiss: Factory.SelectButton().set_selection()
+    BoxLayout:
+        Label:
+            text: 'hello'
+        
+        # Old Question
+        #Button:
+        #    text: 'ok'
+        #    #on_press: Factory.SelectButton().set_selection()
+        #    on_press: root.dismiss()
+
+        # Answer One
+        #Button:
+        #    text: 'ok'
+        #    on_press:
+        #        app.root.ids.selectbutton.selected = True
+        #        root.dismiss()
+
+        # Answer Two
+        Button:
+            text: 'ok'
+            on_press:
+                app.root.ids.selectbutton.set_selection()
+                root.dismiss()
