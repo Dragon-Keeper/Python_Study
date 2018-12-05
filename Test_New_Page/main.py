@@ -127,6 +127,9 @@ class RootWidget(FloatLayout):  # 这个类用于接收输入的赋值然后显�
         self.set_no.clear()  # 通过清除集合内容来达到清除历史数据排序显示
         store.put('SaveData', ran_no=self.ran_no, his_no=self.his_no,
                   his_no_sort=self.his_no_sort, max_show=self.max_show, min_show=self.min_show)
+        screen = Builder.load_file('randomno.kv')
+        self.container.add_widget(screen)
+        # 至此，Clear键大功告成，点击即刻返回空白的randomno.kv主页面
 
     def build(self):
         store = JsonStore('data.json')
@@ -135,8 +138,10 @@ class RootWidget(FloatLayout):  # 这个类用于接收输入的赋值然后显�
             self.ran_no = store.get('SaveData')['ran_no']
             self.his_no_sort = store.get('SaveData')['his_no_sort']
             self.his_no = store.get('SaveData')['his_no']
-        Builder.load_file('randomno.kv')
-        # return RootWidget()
+            self.min_show = store.get('SaveData')['min_show']
+            self.max_show = store.get('SaveData')['max_show']
+        # 默认载入randomno.kv文件
+        self = Builder.load_file('randomno.kv')
 
     def next_screen(self, screen):
         '''Clear container and load the given screen object from file in kv
@@ -154,7 +159,7 @@ class RootWidget(FloatLayout):  # 这个类用于接收输入的赋值然后显�
         # self.container.clear_widgets()
         # load the content of the .kv file
         screen = Builder.load_file(filename)
-        # Read the data When to show in next_screen
+        # 多次点击back而不clear时读取数据显示在next_screen
         store = JsonStore('data.json')
         if store.exists('SaveData'):
             store.get('SaveData')
