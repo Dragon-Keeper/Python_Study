@@ -76,56 +76,53 @@ class RootWidget(FloatLayout):  # 这个类用于接收输入的赋值然后显�
         self.min_show = self.ids["textinput_min"].text
         self.max_show = self.ids["textinput_max"].text
 
-        # 加入判断输入是否为空的语句，如果是空的话，提示输入内容并返回等待输入
-        if not self.min_show or not self.max_show:
-            print("input is Null")
-            # 下面两句不起作用--------------------------------------------------
-            screen = Builder.load_file('randomno.kv')
-            self.add_widget(screen)
+        # 加入判断输入是否为空的语句，如果是空的话，重新载入主页面等待输入
+        while self.min_show == '' or self.max_show == '':
+            Builder.load_file('randomno.kv')
+            break
         else:
-            pass  # 如果判断到输入不为空则继续
-        # 由于input函数输入的是str字符串型，必须转换为整数型才能进行随机运算
-        min = int(self.min_no_input)
-        max = int(self.max_no_input)
-        # 下面这段判断语句用来将输入数据按大小赋值给随机函数，输入框不限制哪个输入大/小
-        if min < max:
-            min_no = min
-            max_no = max
-        else:
-            max_no = min
-            min_no = max
+            # 由于input函数输入的是str字符串型，必须转换为整数型才能进行随机运算
+            min = int(self.min_no_input)
+            max = int(self.max_no_input)
+            # 下面这段判断语句用来将输入数据按大小赋值给随机函数，输入框不限制哪个输入大/小
+            if min < max:
+                min_no = min
+                max_no = max
+            else:
+                max_no = min
+                min_no = max
 # ------------------------------以下为随机数生成过程------------------------------
-        random_no = random.randint(min_no, max_no)  # 产生范围内的随机数
-        if random_no not in self.set_no:  # 判断随机数是否已存在，如果不存在则写入集合
-            print('新的随机数生成：' + str(random_no))  # 调试用的输出
-        else:
-            Random_Times = 1  # 定义函数用来计算随机次数
-            while random_no in self.set_no:  # 判断随机数是否已存在，如果存在则重新产生随机数直到不存在
-                print(str(random_no) + '：已经存在')  # 调试用的输出
-                random_no = random.randint(min_no, max_no)  # 产生范围内的随机数
-                Random_Times = Random_Times + 1  # 每次循环次数加一
-                Max_Random_Times = max_no**2  # 循环输入数值最大数的平方次数
-                if Random_Times > Max_Random_Times:  # 当循环次数大于输入数值最大数的平方次数时
-                    break  # 退出循环，要求从新输入范围
-            else:  # 经过循环重新产生不存在的随机数，然后写入集合
-                print('新的随机数经过循环生成：' + str(random_no))  # 调试用的输出
+            random_no = random.randint(min_no, max_no)  # 产生范围内的随机数
+            if random_no not in self.set_no:  # 判断随机数是否已存在，如果不存在则写入集合
+                print('新的随机数生成：' + str(random_no))  # 调试用的输出
+            else:
+                Random_Times = 1  # 定义函数用来计算随机次数
+                while random_no in self.set_no:  # 判断随机数是否已存在，如果存在则重新产生随机数直到不存在
+                    print(str(random_no) + '：已经存在')  # 调试用的输出
+                    random_no = random.randint(min_no, max_no)  # 产生范围内的随机数
+                    Random_Times = Random_Times + 1  # 每次循环次数加一
+                    Max_Random_Times = max_no**2  # 循环输入数值最大数的平方次数
+                    if Random_Times > Max_Random_Times:  # 当循环次数大于输入数值最大数的平方次数时
+                        break  # 退出循环，要求从新输入范围
+                    else:  # 经过循环重新产生不存在的随机数，然后写入集合
+                        print('新的随机数经过循环生成：' + str(random_no))  # 调试用的输出
 # ------------------------------以上为随机数生成过程------------------------------
-        r_n = random_no
-        self.set_no.add(r_n)  # 随机数写入集合
-        list_set = list(self.set_no)  # 将集合转换成列表
-        self.ran_no = str(r_n)  # 显示随机数
-        self.his_no = self.his_no + str(r_n) + '->'  # 按随机数产生顺序显示随机结果
-        list_set.sort()  # 列表按小到大排序，这样输出到数据文件就是顺序的了
-        self.his_no_sort = str(list_set).replace('[', '').replace(
-            ']', '').replace(',', ' ').replace('\'', '')
-        # 通过计算列表内容的数量和"max"对比，相等时在非排序历史数据栏提示随机完毕
-        if len(list_set) == max_no:
-            self.his_no = self.his_no + 'My Lord! Random Finish ^_^'
-        else:
-            pass
-        # 建立字典SaveData，将值self.ran_no存在键ran_no下面。。。已起效
-        store.put('SaveData', ran_no=self.ran_no, his_no=self.his_no,
-                  his_no_sort=self.his_no_sort, max_show=self.max_show, min_show=self.min_show)
+            r_n = random_no
+            self.set_no.add(r_n)  # 随机数写入集合
+            list_set = list(self.set_no)  # 将集合转换成列表
+            self.ran_no = str(r_n)  # 显示随机数
+            self.his_no = self.his_no + str(r_n) + '->'  # 按随机数产生顺序显示随机结果
+            list_set.sort()  # 列表按小到大排序，这样输出到数据文件就是顺序的了
+            self.his_no_sort = str(list_set).replace(
+                '[', '').replace(']', '').replace(',', ' ').replace('\'', '')
+            # 通过计算列表内容的数量和"max"对比，相等时在非排序历史数据栏提示随机完毕
+            if len(list_set) == max_no:
+                self.his_no = self.his_no + 'My Lord! Random Finish ^_^'
+            else:
+                pass
+                # 建立字典SaveData，将值self.ran_no存在键ran_no下面。。。已起效
+            store.put('SaveData', ran_no=self.ran_no, his_no=self.his_no,
+                      his_no_sort=self.his_no_sort, max_show=self.max_show, min_show=self.min_show)
 
     def confim2(self):  # 用来将输入的内容显示在label上，关联button的on_press
         self.ran_no = ' '
