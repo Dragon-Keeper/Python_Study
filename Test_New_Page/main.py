@@ -68,24 +68,33 @@ class RootWidget(FloatLayout):  # 这个类用于接收输入的赋值然后显�
         self.set_no = set()
 
     def confim(self):  # 用来将输入的内容显示在label上，关联button的on_press
-        # ----------------------判断输入是否为空，空的话弹出提示要求输入内容--------------------------------------
+        # ----------------------判断输入是否为空，空的话弹出提示要求输入内容--------
         # 使用ids来访问带id标识的对象，将text_box赋值给text，而text_box取值自输入栏
         self.min_no_input = self.ids["textinput_min"].text
         self.max_no_input = self.ids["textinput_max"].text
         # 将输入的内容传递给函数以保存
         self.min_show = self.ids["textinput_min"].text
         self.max_show = self.ids["textinput_max"].text
-        # 下面这段判断语句用来将输入数据按大小赋值给随机函数，输入框不限制哪个输入大/小
-        if self.min_no_input < self.max_no_input:
-            min = self.min_no_input
-            max = self.max_no_input
+
+        # 加入判断输入是否为空的语句，如果是空的话，提示输入内容并返回等待输入
+        if not self.min_show or not self.max_show:
+            print("input is Null")
+            # 下面两句不起作用--------------------------------------------------
+            screen = Builder.load_file('randomno.kv')
+            self.add_widget(screen)
         else:
-            max = self.min_no_input
-            min = self.max_no_input
+            pass  # 如果判断到输入不为空则继续
+        # 由于input函数输入的是str字符串型，必须转换为整数型才能进行随机运算
+        min = int(self.min_no_input)
+        max = int(self.max_no_input)
+        # 下面这段判断语句用来将输入数据按大小赋值给随机函数，输入框不限制哪个输入大/小
+        if min < max:
+            min_no = min
+            max_no = max
+        else:
+            max_no = min
+            min_no = max
 # ------------------------------以下为随机数生成过程------------------------------
-        # 由于input函数输入的是str字符串型，必须转换为整数型才能进行随机运算，直接用int转换的话提示错误，所以先用float转换为浮点型，然后再用round取整去小数点
-        min_no = round(float(min))
-        max_no = round(float(max))
         random_no = random.randint(min_no, max_no)  # 产生范围内的随机数
         if random_no not in self.set_no:  # 判断随机数是否已存在，如果不存在则写入集合
             print('新的随机数生成：' + str(random_no))  # 调试用的输出
@@ -131,18 +140,6 @@ class RootWidget(FloatLayout):  # 这个类用于接收输入的赋值然后显�
         self.container.add_widget(screen)
         # 至此，Clear键大功告成，点击即刻返回空白的randomno.kv主页面
 
-    def build(self):
-        store = JsonStore('data.json')
-        if store.exists('SaveData'):
-            store.get('SaveData')
-            self.ran_no = store.get('SaveData')['ran_no']
-            self.his_no_sort = store.get('SaveData')['his_no_sort']
-            self.his_no = store.get('SaveData')['his_no']
-            self.min_show = store.get('SaveData')['min_show']
-            self.max_show = store.get('SaveData')['max_show']
-        # 默认载入randomno.kv文件
-        self = Builder.load_file('randomno.kv')
-
     def next_screen(self, screen):
         '''Clear container and load the given screen object from file in kv
         folder.
@@ -154,11 +151,9 @@ class RootWidget(FloatLayout):  # 这个类用于接收输入的赋值然后显�
         filename = screen + '.kv'
         # unload the content of the .kv file
         # reason: it could have data from previous calls
-        Builder.unload_file(filename)
+        # Builder.unload_file(filename)
         # clear the container
         # self.container.clear_widgets()
-        # load the content of the .kv file
-        screen = Builder.load_file(filename)
         # 多次点击back而不clear时读取数据显示在next_screen
         store = JsonStore('data.json')
         if store.exists('SaveData'):
@@ -168,6 +163,8 @@ class RootWidget(FloatLayout):  # 这个类用于接收输入的赋值然后显�
             self.his_no = store.get('SaveData')['his_no']
             self.min_show = store.get('SaveData')['min_show']
             self.max_show = store.get('SaveData')['max_show']
+        # load the content of the .kv file
+        screen = Builder.load_file(filename)
         # add the content of the .kv file to the container
         self.container.add_widget(screen)
 # -----------------------------以上为将输入框内容赋值给具体函数--------------------
@@ -177,8 +174,6 @@ class RandomNoApp(App):
     def __init__(self, **kwargs):
         super(RandomNoApp, self).__init__(**kwargs)
 
-# if __name__ == '__main__':
-#    '''Start the application'''
 
-
-RandomNoApp().run()
+if __name__ == '__main__':
+    RandomNoApp().run()

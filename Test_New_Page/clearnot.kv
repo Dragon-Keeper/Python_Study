@@ -9,24 +9,23 @@ RootWidget:
     BoxLayout:
         id: container
         orientation: 'horizontal'
-        padding: 0
-        spacing: 3
+        padding: 250  # decide Label's Y_position
+        spacing: 300
 
         Label:
             text: 'Clear Or Not'
-            font_size:20
-            pos:200, 200
+            font_size:50
 
-            # weiter button
             Button:
+                id: back
                 size_hint: 0.2, 1
-                pos:2, 2
+                pos:50, 300
                 text: 'Back'
                 on_release: root.next_screen('randomno')
 
             Button:
                 id: clear
                 size_hint: 0.2, 1
-                pos:100, 100
+                pos:200, 300
                 text: 'Clear'
                 on_release: root.confim2()
