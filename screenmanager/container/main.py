@@ -34,7 +34,7 @@ class EzsApp(App):
         :rtype: none
         '''
         # loading the content of root.kv
-        self.root = Builder.load_file('kv/root.kv')
+        self.root = Builder.load_file('kv/' + 'root.kv')
 
     def next_screen(self, screen):
         '''Clear container and load the given screen object from file in kv
@@ -44,7 +44,11 @@ class EzsApp(App):
         :type screen: str
         :rtype: none
     '''
-
+        while screen == 'root':
+            Builder.load_file('kv/' + 'root.kv')
+            break
+        else:
+            pass
         filename = screen + '.kv'
         # unload the content of the .kv file
         # reason: it could have data from previous calls
