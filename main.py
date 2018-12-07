@@ -5,20 +5,19 @@ from kivy.lang import Builder
 from kivy.uix.floatlayout import FloatLayout
 from kivy.storage.jsonstore import JsonStore
 from kivy.properties import StringProperty
+from kivy.properties import ObjectProperty
 from kivy.uix.textinput import TextInput
 from kivy.base import EventLoop
-
 kivy.require('1.10.1')
 # coding: UTF-8
 
 #  Kivy文件内注释不能用python的格式
+#  from kivy.lang import Builder
 #  from kivy.uix.label import Label
 #  from kivy.uix.boxlayout import BoxLayout
 #  from kivy.graphics import Color, Rectangle  # 为背景添加颜色，画矩形
 #  from kivy.config import Config
 
-# -----------------------------以下为监测输入框内容等待赋值-----------------------
-# 为了使用属性，你必须在一个类里面声明它们，注意是直接写在类里面，而不是写在任何的类的方法里，它是一个类属性。每一个属性都默认提供了一个on_<propertyname>事件；当属性值的状态和属性值发生改变时该事件均会被调用。
 store = JsonStore('data.json')  # 建立数据文件data.json
 if store.exists('SaveData'):
     store.get('SaveData')
@@ -27,6 +26,8 @@ if store.exists('SaveData'):
     his_no = store.get('SaveData')['his_no']
     min_show = store.get('SaveData')['min_show']
     max_show = store.get('SaveData')['max_show']
+# -----------------------------以下为监测输入框内容等待赋值-----------------------
+# 为了使用属性，你必须在一个类里面声明它们，注意是直接写在类里面，而不是写在任何的类的方法里，它是一个类属性。每一个属性都默认提供了一个on_<propertyname>事件；当属性值的状态和属性值发生改变时该事件均会被调用。
 
 
 class TextInput_No(TextInput):  # 这个类用于接收输入的变化然后赋值
@@ -45,17 +46,22 @@ class TextInput_No(TextInput):  # 这个类用于接收输入的变化然后赋�
 # -----------------------------以下为将输入框内容赋值给具体函数--------------------
 
 
-class BackGround(FloatLayout):  # 这个类用于接收输入的赋值然后显示出来
+class RootWidget(FloatLayout):  # 这个类用于接收输入的赋值然后显示出来
     min_no_input = StringProperty()  # 将text定义为一个字符属性
     max_no_input = StringProperty()
+    min_show = StringProperty()
+    max_show = StringProperty()
     ran_no = StringProperty()
     his_no = StringProperty()
     his_no_sort = StringProperty()
+    container = ObjectProperty(None)
 
     def __init__(self, **kwargs):
-        super(BackGround, self).__init__(**kwargs)
+        super(RootWidget, self).__init__(**kwargs)
         self.min_no_input = ''  # 创建一个自定义事件,设定min_no_input的值为空，等待赋值
         self.max_no_input = ''
+        self.min_show = ''
+        self.max_show = ''
         self.ran_no = ''
         self.his_no_sort = ''
         self.his_no = ''
@@ -122,8 +128,42 @@ class BackGround(FloatLayout):  # 这个类用于接收输入的赋值然后显�
         self.ran_no = ' '
         self.his_no_sort = ' '
         self.his_no = ' '
+        self.min_show = ' '
+        self.max_show = ' '
         self.set_no.clear()  # 通过清除集合内容来达到清除历史数据排序显示
+        store.put('SaveData', ran_no=self.ran_no, his_no=self.his_no,
+                  his_no_sort=self.his_no_sort, max_show=self.max_show, min_show=self.min_show)
+        screen = Builder.load_file('randomno.kv')
+        self.container.add_widget(screen)
+        # 至此，Clear键大功告成，点击即刻返回空白的randomno.kv主页面
 
+    def next_screen(self, screen):
+        '''Clear container and load the given screen object from file in kv
+        folder.
+
+        :param screen: name of the screen object made from the loaded .kv file
+        :type screen: str
+        :rtype: none
+    '''
+        filename = screen + '.kv'
+        # unload the content of the .kv file
+        # reason: it could have data from previous calls
+        # Builder.unload_file(filename)
+        # clear the container
+        self.container.clear_widgets()
+        # 多次点击back而不clear时读取数据显示在next_screen
+        store = JsonStore('data.json')
+        if store.exists('SaveData'):
+            store.get('SaveData')
+            self.ran_no = store.get('SaveData')['ran_no']
+            self.his_no_sort = store.get('SaveData')['his_no_sort']
+            self.his_no = store.get('SaveData')['his_no']
+            self.min_show = store.get('SaveData')['min_show']
+            self.max_show = store.get('SaveData')['max_show']
+        # load the content of the .kv file
+        screen = Builder.load_file(filename)
+        # add the content of the .kv file to the container
+        self.container.add_widget(screen)
 # -----------------------------以上为将输入框内容赋值给具体函数--------------------
 
 
@@ -131,8 +171,6 @@ class RandomNoApp(App):
     def __init__(self, **kwargs):
         super(RandomNoApp, self).__init__(**kwargs)
 
-    def build(self):
-        return BackGround()
 
-
-RandomNoApp().run()
+if __name__ == '__main__':
+    RandomNoApp().run()

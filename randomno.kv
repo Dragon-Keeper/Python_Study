@@ -1,8 +1,9 @@
 #:kivy 1.10.1
 #:import kivy kivy
 
-<BackGround>:
-    orientation: 'vertical'
+RootWidget:
+    # import container
+    container: container
 
 # background
     FloatLayout:
@@ -125,16 +126,17 @@
                 width:1
 
         Button:
-            id: clear
+            # id: clear
             background_normal: '4.png'
             background_down: '6.png'
             pos:137, 490
             size_hint:None,None
             size:60, 60
-            on_press:root.confim2()
+            on_press:root.next_screen('clearnot')
 
         TextInput:
             id: textinput_min
+            text:root.min_show
             font_size:18
             pos:75, 197
             size_hint:None,None
@@ -150,6 +152,7 @@
 
         TextInput:
             id: textinput_max
+            text:root.max_show
             font_size:18
             pos:205, 197
             #size_hint: .07, .18
@@ -178,3 +181,12 @@
             size_hint:None,None
             size:20.28, 0.5
             color: 1, 1, 1, .3
+
+    BoxLayout:
+        id: container
+        canvas:
+            Color:
+                rgba: 1, 1, 1, 0
+            Rectangle:
+                pos:2, 240
+                size: 334, 250
