@@ -5,6 +5,7 @@ from kivy.lang import Builder
 from kivy.uix.floatlayout import FloatLayout
 from kivy.storage.jsonstore import JsonStore
 from kivy.properties import StringProperty
+from kivy.properties import NumericProperty
 from kivy.properties import ObjectProperty
 from kivy.uix.textinput import TextInput
 from kivy.base import EventLoop
@@ -54,6 +55,7 @@ class RootWidget(FloatLayout):  # 这个类用于接收输入的赋值然后显�
     ran_no = StringProperty()
     his_no = StringProperty()
     his_no_sort = StringProperty()
+    clearnot_color = NumericProperty()
     container = ObjectProperty(None)
 
     def __init__(self, **kwargs):
@@ -65,6 +67,7 @@ class RootWidget(FloatLayout):  # 这个类用于接收输入的赋值然后显�
         self.ran_no = ''
         self.his_no_sort = ''
         self.his_no = ''
+        self.clearnot_color = 0.5
         self.set_no = set()
 
     def confim(self):  # 用来将输入的内容显示在label上，关联button的on_press
@@ -77,7 +80,7 @@ class RootWidget(FloatLayout):  # 这个类用于接收输入的赋值然后显�
         self.max_show = self.ids["textinput_max"].text
 
         # 加入判断输入是否为空的语句，如果是空的话，重新载入主页面等待输入
-        while self.min_show == '' or self.max_show == '':
+        while self.min_show == '' or self.max_show == '' or self.min_show == ' ' or self.max_show == ' ':
             Builder.load_file('randomno.kv')
             break
         else:
@@ -160,6 +163,11 @@ class RootWidget(FloatLayout):  # 这个类用于接收输入的赋值然后显�
             self.his_no = store.get('SaveData')['his_no']
             self.min_show = store.get('SaveData')['min_show']
             self.max_show = store.get('SaveData')['max_show']
+        # 如果检测到载入判断返回/清除页面，将底色调黑
+        if screen == 'clearnot':
+            self.clearnot_color = 0.5
+        else:
+            self.clearnot_color = 0
         # load the content of the .kv file
         screen = Builder.load_file(filename)
         # add the content of the .kv file to the container

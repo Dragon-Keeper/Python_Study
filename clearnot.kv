@@ -8,25 +8,35 @@ RootWidget:
     # fill the container
     BoxLayout:
         id: container
-        orientation: 'horizontal'
-        padding: 250  # decide Label's Y_position
-        spacing: 300
+        # padding: 50, 100  # decide Label's Y_position
+        # spacing: 50
+        canvas:
+            Color:
+                rgba: 0, 0, 0, root.clearnot_color
+            Rectangle:
+                pos:0, 0
+                size: 337.5, 600
 
         Label:
-            # text: 'Clear Or Not'
+            #text: 'Back Or Clear'
             font_size:50
+            color:1, 1, 1, 1
 
             Button:
                 id: back
-                size_hint: 0.2, 1
-                pos:50, 300
-                text: 'Back'
+                background_normal: 'back-1.png'
+                background_down: 'back-2.png'
+                size_hint:None,None
+                size:90, 120
+                pos:60, 270
                 # on_release: root.next_screen('randomno')
                 on_release: root.next_screen('clearnot2')
 
             Button:
                 id: clear
-                size_hint: 0.2, 1
-                pos:200, 300
-                text: 'Clear'
+                background_normal: 'clear-1.png'
+                background_down: 'clear-2.png'
+                size_hint:None,None
+                size:90, 120
+                pos:200, 270
                 on_release: root.confim2()
