@@ -154,15 +154,15 @@ class RootWidget(FloatLayout):  # 这个类用于接收输入的赋值然后显�
         # Builder.unload_file(filename)
         # clear the container
         self.container.clear_widgets()
-        # 多次点击back而不clear时读取数据显示在next_screen
-        store = JsonStore('data.json')
-        if store.exists('SaveData'):
-            store.get('SaveData')
-            self.ran_no = store.get('SaveData')['ran_no']
-            self.his_no_sort = store.get('SaveData')['his_no_sort']
-            self.his_no = store.get('SaveData')['his_no']
-            self.min_show = store.get('SaveData')['min_show']
-            self.max_show = store.get('SaveData')['max_show']
+        # 多次点击back而不clear时读取数据显示在next_screen-----下面代码可能没有，还可能会导致在clearnot2页面出现空赋值传递而导致出错
+        #store = JsonStore('data.json')
+        #if store.exists('SaveData'):
+        #    store.get('SaveData')
+        #    self.ran_no = store.get('SaveData')['ran_no']
+        #    self.his_no_sort = store.get('SaveData')['his_no_sort']
+        #    self.his_no = store.get('SaveData')['his_no']
+        #    self.min_show = store.get('SaveData')['min_show']
+        #    self.max_show = store.get('SaveData')['max_show']
         # 如果检测到载入判断返回/清除页面，将底色调黑
         if screen == 'clearnot':
             self.clearnot_color = 0.5
