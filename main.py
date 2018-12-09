@@ -57,6 +57,7 @@ class RootWidget(FloatLayout):  # 这个类用于接收输入的赋值然后显�
     his_no_sort = StringProperty()
     clearnot_color = NumericProperty()
     container = ObjectProperty(None)
+    f_s = NumericProperty()
 
     def __init__(self, **kwargs):
         super(RootWidget, self).__init__(**kwargs)
@@ -69,6 +70,7 @@ class RootWidget(FloatLayout):  # 这个类用于接收输入的赋值然后显�
         self.his_no = ''
         self.clearnot_color = 0.5
         self.set_no = set()
+        self.f_s = 250
 
     def confim(self):  # 用来将输入的内容显示在label上，关联button的on_press
         # ----------------------判断输入是否为空，空的话弹出提示要求输入内容--------
@@ -104,7 +106,7 @@ class RootWidget(FloatLayout):  # 这个类用于接收输入的赋值然后显�
                     print(str(random_no) + '：已经存在')  # 调试用的输出
                     random_no = random.randint(min_no, max_no)  # 产生范围内的随机数
                     Random_Times = Random_Times + 1  # 每次循环次数加一
-                    Max_Random_Times = max_no**2  # 循环输入数值最大数的平方次数
+                    Max_Random_Times = (max_no - min_no) * 5  # 循环输入数值之差的五倍次数
                     if Random_Times > Max_Random_Times:  # 当循环次数大于输入数值最大数的平方次数时
                         break  # 退出循环，要求从新输入范围
                     else:  # 经过循环重新产生不存在的随机数，然后写入集合
@@ -114,6 +116,25 @@ class RootWidget(FloatLayout):  # 这个类用于接收输入的赋值然后显�
             self.set_no.add(r_n)  # 随机数写入集合
             list_set = list(self.set_no)  # 将集合转换成列表
             self.ran_no = str(r_n)  # 显示随机数
+            ran_no_len = len(self.ran_no)
+            print(ran_no_len)
+            if ran_no_len <= 2:
+                self.f_s = 250
+            else:
+                if ran_no_len <= 8:
+                    self.f_s = 140
+                else:
+                    if ran_no_len <= 10:
+                        self.f_s = 100
+                    else:
+                        if ran_no_len <= 15:
+                            self.f_s = 80
+                        else:
+                            if ran_no_len <= 20:
+                                self.f_s = 60
+                            else:
+                                self.f_s = 40
+            print(self.f_s)
             self.his_no = self.his_no + str(r_n) + '->'  # 按随机数产生顺序显示随机结果
             list_set.sort()  # 列表按小到大排序，这样输出到数据文件就是顺序的了
             self.his_no_sort = str(list_set).replace(
