@@ -116,8 +116,8 @@ class RootWidget(FloatLayout):  # 这个类用于接收输入的赋值然后显�
             self.set_no.add(r_n)  # 随机数写入集合
             list_set = list(self.set_no)  # 将集合转换成列表
             self.ran_no = str(r_n)  # 显示随机数
+            # ------下面这一段为随机数长度并根据长度设定字体大小自适应窗口大小-------
             ran_no_len = len(self.ran_no)
-            print(ran_no_len)
             if ran_no_len <= 2:
                 self.f_s = 250
             else:
@@ -134,7 +134,7 @@ class RootWidget(FloatLayout):  # 这个类用于接收输入的赋值然后显�
                                 self.f_s = 60
                             else:
                                 self.f_s = 40
-            print(self.f_s)
+            # ------上面这一段为随机数长度并根据长度设定字体大小自适应窗口大小-------
             self.his_no = self.his_no + str(r_n) + '->'  # 按随机数产生顺序显示随机结果
             list_set.sort()  # 列表按小到大排序，这样输出到数据文件就是顺序的了
             self.his_no_sort = str(list_set).replace(
