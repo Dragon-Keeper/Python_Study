@@ -119,7 +119,8 @@ class RootWidget(FloatLayout):  # 这个类用于接收输入的赋值然后显�
             self.his_no_sort = str(list_set).replace(
                 '[', '').replace(']', '').replace(',', ' ').replace('\'', '')
             # 通过计算列表内容的数量和"max"对比，相等时在非排序历史数据栏提示随机完毕
-            if len(list_set) == max_no:
+            no_len = max_no - min_no + 1
+            if len(list_set) >= no_len:
                 self.his_no = self.his_no + 'My Lord! Random Finish ^_^'
             else:
                 pass
@@ -137,6 +138,7 @@ class RootWidget(FloatLayout):  # 这个类用于接收输入的赋值然后显�
         store.put('SaveData', ran_no=self.ran_no, his_no=self.his_no,
                   his_no_sort=self.his_no_sort, max_show=self.max_show, min_show=self.min_show)
         screen = Builder.load_file('randomno.kv')
+        self.container.clear_widgets()  # 清除所有页面，防止通过点击激活旧的数据页面
         self.container.add_widget(screen)
         # 至此，Clear键大功告成，点击即刻返回空白的randomno.kv主页面
 
@@ -155,8 +157,8 @@ class RootWidget(FloatLayout):  # 这个类用于接收输入的赋值然后显�
         # clear the container
         self.container.clear_widgets()
         # 多次点击back而不clear时读取数据显示在next_screen-----下面代码可能没有，还可能会导致在clearnot2页面出现空赋值传递而导致出错
-        #store = JsonStore('data.json')
-        #if store.exists('SaveData'):
+        # store = JsonStore('data.json')
+        # if store.exists('SaveData'):
         #    store.get('SaveData')
         #    self.ran_no = store.get('SaveData')['ran_no']
         #    self.his_no_sort = store.get('SaveData')['his_no_sort']
