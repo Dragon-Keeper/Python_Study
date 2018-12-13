@@ -15,11 +15,11 @@ RootWidget:
                 rgba: 0, 0, 0, root.clearnot_color
             Rectangle:
                 pos:0, 0
-                size: 337.5, 600
+                size: 1080, 1920
 
         Label:
             #text: 'clearnot'
-            font_size:50
+            font_size:160
             color:1, 1, 1, 1
 
             Button:
@@ -27,8 +27,8 @@ RootWidget:
                 background_normal: 'back-1.png'
                 background_down: 'back-2.png'
                 size_hint:None,None
-                size:90, 120
-                pos:60, 270
+                size:288, 384
+                pos:192, 864
                 # on_release: root.next_screen('randomno')
                 on_release: root.next_screen('clearnot2')
 
@@ -37,6 +37,6 @@ RootWidget:
                 background_normal: 'clear-1.png'
                 background_down: 'clear-2.png'
                 size_hint:None,None
-                size:90, 120
-                pos:200, 270
+                size:288, 384
+                pos:640, 864
                 on_release: root.confim2()

@@ -70,7 +70,7 @@ class RootWidget(FloatLayout):  # 这个类用于接收输入的赋值然后显�
         self.his_no = ''
         self.clearnot_color = 0.5
         self.set_no = set()
-        self.f_s = 250
+        self.f_s = 800
 
     def confim(self):  # 用来将输入的内容显示在label上，关联button的on_press
         # ----------------------判断输入是否为空，空的话弹出提示要求输入内容--------
@@ -119,21 +119,21 @@ class RootWidget(FloatLayout):  # 这个类用于接收输入的赋值然后显�
             # ------下面这一段为随机数长度并根据长度设定字体大小自适应窗口大小-------
             ran_no_len = len(self.ran_no)
             if ran_no_len <= 2:
-                self.f_s = 250
+                self.f_s = 800
             else:
                 if ran_no_len <= 8:
-                    self.f_s = 140
+                    self.f_s = 448
                 else:
                     if ran_no_len <= 10:
-                        self.f_s = 100
+                        self.f_s = 320
                     else:
                         if ran_no_len <= 15:
-                            self.f_s = 80
+                            self.f_s = 256
                         else:
                             if ran_no_len <= 20:
-                                self.f_s = 60
+                                self.f_s = 192
                             else:
-                                self.f_s = 40
+                                self.f_s = 128
             # ------上面这一段为随机数长度并根据长度设定字体大小自适应窗口大小-------
             self.his_no = self.his_no + str(r_n) + '->'  # 按随机数产生顺序显示随机结果
             list_set.sort()  # 列表按小到大排序，这样输出到数据文件就是顺序的了
