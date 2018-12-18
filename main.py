@@ -121,7 +121,7 @@ class RootWidget(FloatLayout):  # 这个类用于接收输入的赋值然后显�
             if ran_no_len <= 2:
                 self.f_s = 800
             else:
-                if ran_no_len <= 8:
+                if ran_no_len <= 4:
                     self.f_s = 448
                 else:
                     if ran_no_len <= 10:
