@@ -60,22 +60,26 @@ def ra_no(no_input):
     # -----------------------------将随机数的产生过程做成函数---------------------
 
 
+res_out = ra_no(no_input)  # 座位结果列表，这句必须在while循环外，否则重复生成座位结果列表
 count = 1
-while count < round(float(no_input)) + 1:
-    res_out = ra_no(no_input)  # 座位结果列表
+while count < int(no_input):
     print("随机结果列表：", res_out)
     ran_no = random.choice(res_out)  # 随机出一个列表内的数值
     while ran_no in ran_out:  # 如果随机存在结果列表内，再在座位结果列表里随机出另一个
         ran_no = random.choice(res_out)  # 随机出一个列表内的数值
         print("再次随机出的结果：", ran_no)  # 调试从列表随机出一个数值的结果
-        # -------------------------要在这加入退出循环判断，如果随机出全部数据推出随机循环-----------------------
+        # -------------------------下面加入退出循环判断，如果随机出全部数据则退出随机循环
+        count = count + 1
+        Max_Random_Times = int(no_input)
+        if count > Max_Random_Times:
+            break
     else:
         print("随机结果：", ran_no)  # 调试从列表随机出一个数值的结果
         ran_out.append(ran_no)  # 将随机结果存入随机结果列表中
         print("随机结果添加入随机结果列表：", ran_out)  # 调试显示随机结果列表
 # -----------------------------以上获取座位结果列表并随机出一个座位并存入随机结果列表
     detect = input('如果输入数字“0”则程序继续执行，否则退出程序:')  # 通过输入字符来判断是否继续产生随机数还是退出
-    if (float(detect)) == 0:
-        count = count + 1
+    if (int(detect)) == 0:
+        continue
     else:
         break
