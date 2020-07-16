@@ -25,7 +25,7 @@ def ra_no(no_input):
 
     # ran_no_lis = []  # 随机结果列表
     for x in l_set:  # 依次提取列表内的数值
-        print('依次提取输入的数字：', x)  # 调试显示每次从列表内提取的数值
+        # print('依次提取输入的数字：', x)  # 调试显示每次从列表内提取的数值
         k = [i + 1 for i in range(x)]  # 将从列表提取出的数值迭代
         ar = numpy.array(k)  # 为下一步整数加列表做列表转换数组
         result = c + ar  # 将列数加上座位顺序得到那列的序号
