@@ -9,8 +9,6 @@ res_out = []  # 储存函数随机结果的列表
 res_lis_all_in_one = []  # 存放所有序号的列表
 ran_out = []
 
-no_input = input('请输入想随机的数序:')  # 用正则表达式提示输入数据
-
 
 def ra_no(no_input):
     no = round(float(no_input))  # 由于input函数输入的是str字符串型，必须转换为整数型才能进行随机运算，直接用int转换的话提示错误，所以先用float转换为浮点型，然后再用round取整去小数点
@@ -22,7 +20,6 @@ def ra_no(no_input):
 
     i = 0  # 用于计算次数，控制列数与输入数字相加的次数
     c = 10  # 用于与输入数字相加的基础
-
     # ran_no_lis = []  # 随机结果列表
     for x in l_set:  # 依次提取列表内的数值
         # print('依次提取输入的数字：', x)  # 调试显示每次从列表内提取的数值
@@ -58,6 +55,7 @@ def ra_no(no_input):
     # -----------------------------将随机数的产生过程做成函数---------------------
 
 
+no_input = input('请输入想随机的数序:')  # 用正则表达式提示输入数据
 res_out = ra_no(no_input)  # 通过函数获取座位结果列表，这句必须在while循环外，否则重复生成座位结果列表
 count = 1
 while count < int(no_input):
