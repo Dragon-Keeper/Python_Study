@@ -8,6 +8,7 @@ res_lis = []  # 储存序号数组转成的列表
 res_out = []  # 储存函数随机结果的列表
 res_lis_all_in_one = []  # 存放所有序号的列表
 ran_out = []
+sum_count = 0  # 利用输入获取后面随机次数
 
 
 def ra_no(no_input):
@@ -56,23 +57,33 @@ def ra_no(no_input):
 
 
 no_input = input('请输入想随机的数序:')  # 用正则表达式提示输入数据
+no_detect = no_input.isnumeric()  # 检测输入的数据是否全部由数字组成
+while no_detect is False:  # 如果输入的数字不是全部由数字组成，则进入循环
+    print('你好，你输入的内容不是整数，请重新输入。')
+    no_input = input('请输入想随机的数序:')  # 提示重新输入数据
+    no_detect = no_input.isnumeric()  # 再次检测输入的数据是否全部由数字组成
+    if no_detect is True:  # 如果输入的数字全部由数字组成
+        break  # 退出循环
+
 res_out = ra_no(no_input)  # 通过函数获取座位结果列表，这句必须在while循环外，否则重复生成座位结果列表
+
+# --------------------------------下面这段利用输入获取后面随机次数sum_count-------
+for i in range(len(no_input)):  # 遍历输入数字字符串
+    sum_count = sum_count + int(no_input[i])  # 将字符转成int，求和
+    # print(sum_count)  # 调试输出随机次数sum_count
+# -----------------------------------以下是用第一种方法来获取随机结果---------------
+
 count = 1
-while count < int(no_input):
+while count <= sum_count:  # 必须要有“=”在这里，否则单列时无法随机出所有座位
     # print("随机结果列表：", res_out)  # 调试随机结果列表的输出
     ran_no = random.choice(res_out)  # 随机出一个列表内的数值
-    while ran_no in ran_out:  # 如果随机存在结果列表内，再在座位结果列表里随机出另一个
-        ran_no = random.choice(res_out)  # 随机出一个列表内的数值
-        print("再次随机出的结果：", ran_no)  # 调试从列表随机出一个数值的结果
-        # -------------------------下面加入退出循环判断，如果随机出全部数据则退出随机循环
-        count = count + 1
-        Max_Random_Times = int(no_input)
-        if count > Max_Random_Times:
-            break
-    else:
-        print("随机结果：", ran_no)  # 调试从列表随机出一个数值的结果
-        ran_out.append(ran_no)  # 将随机结果存入随机结果列表中
-        # print("随机结果添加入随机结果列表：", ran_out)  # 调试显示随机结果列表
+    print("随机结果：", ran_no)  # 调试从列表随机出一个数值的结果
+    res_out.remove(ran_no)  # 从全体列表里清除刚刚随机出来的结果
+    # print("随机后的全体列表：", res_out)  # 调试显示随机后的全体列表
+    # -------------------------下面加入退出循环判断，如果随机出全部数据则退出随机循环
+    count = count + 1
+    if count > sum_count:
+        break
 # -----------------------------以上获取座位结果列表并随机出一个座位并存入随机结果列表
     detect = input('如果输入数字“0”则程序继续执行，否则退出程序:')  # 通过输入字符来判断是否继续产生随机数还是退出
     if (int(detect)) == 0:
