@@ -60,7 +60,7 @@ def ra_no(no_input):
     # -----------------------------将随机数的产生过程做成函数---------------------
 
 
-res_out = ra_no(no_input)  # 座位结果列表，这句必须在while循环外，否则重复生成座位结果列表
+res_out = ra_no(no_input)  # 通过函数获取座位结果列表，这句必须在while循环外，否则重复生成座位结果列表
 count = 1
 while count < int(no_input):
     print("随机结果列表：", res_out)
