@@ -1,2 +1,2 @@
-# Random_NO._AutoScreen
- 随机数APP自适应屏幕
+# Random_NO._T-one
+ 添加输入列人数来随机出对应座位
