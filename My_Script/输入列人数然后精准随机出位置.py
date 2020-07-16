@@ -17,27 +17,25 @@ def ra_no(no_input):
     # -----------------------------以上为获取输入数序--------------------------------
 
     l_set = [int(item) for item in str(no)]
-    print('输入的数字生成列表：', l_set)  # 调试输入是否生成列表
+    # print('输入的数字生成列表：', l_set)  # 调试输入是否生成列表
     # ----------------------------以上将输入数序拆开成列表---------------------------
 
     i = 0  # 用于计算次数，控制列数与输入数字相加的次数
     c = 10  # 用于与输入数字相加的基础
 
     # ran_no_lis = []  # 随机结果列表
-    no_l = len(l_set) + 1  # 获取列表长度用于拆分列表,+1用于后面拆长度为列表时从1开始取值
-    print('输入的数字生成列表长度加1：', no_l)  # 调试列表长度是否生成列表
     for x in l_set:  # 依次提取列表内的数值
-        print('依次提取输入的数字：', x)  # 调试显示每次从列表内提取的数值
+        # print('依次提取输入的数字：', x)  # 调试显示每次从列表内提取的数值
         k = [i + 1 for i in range(x)]  # 将从列表提取出的数值迭代
         ar = numpy.array(k)  # 为下一步整数加列表做列表转换数组
         result = c + ar  # 将列数加上座位顺序得到那列的序号
-        print('依次提取输入的数字并加10：', result)  # 结果生成数组
+        # print('依次提取输入的数字并加10：', result)  # 调试结果生成数组
         res_lis.append(result.tolist())  # 结果生成的数组转列表
-        print('显示结果合集：', res_lis)  # 调试生成的数组转列表结果
+        # print('显示结果合集：', res_lis)  # 调试生成的数组转列表结果
         c = c + 10  # 每完成一列就加10到第二列
         i = i + 1
     res_lis_all_in_one = [y for x in res_lis for y in x]  # 将嵌套的列表合一
-    print("嵌套的列表合一结果：", res_lis_all_in_one)  # 调试嵌套的列表合一结果
+    # print("嵌套的列表合一结果：", res_lis_all_in_one)  # 调试嵌套的列表合一结果
     # -----------------------------以上将生成的列表合成一个全体列表--------------------
 
     # ran_no = random.choice(res_lis_all_in_one)  # 随机出一个列表内的数值
@@ -63,7 +61,7 @@ def ra_no(no_input):
 res_out = ra_no(no_input)  # 通过函数获取座位结果列表，这句必须在while循环外，否则重复生成座位结果列表
 count = 1
 while count < int(no_input):
-    print("随机结果列表：", res_out)
+    # print("随机结果列表：", res_out)  # 调试随机结果列表的输出
     ran_no = random.choice(res_out)  # 随机出一个列表内的数值
     while ran_no in ran_out:  # 如果随机存在结果列表内，再在座位结果列表里随机出另一个
         ran_no = random.choice(res_out)  # 随机出一个列表内的数值
@@ -76,7 +74,7 @@ while count < int(no_input):
     else:
         print("随机结果：", ran_no)  # 调试从列表随机出一个数值的结果
         ran_out.append(ran_no)  # 将随机结果存入随机结果列表中
-        print("随机结果添加入随机结果列表：", ran_out)  # 调试显示随机结果列表
+        # print("随机结果添加入随机结果列表：", ran_out)  # 调试显示随机结果列表
 # -----------------------------以上获取座位结果列表并随机出一个座位并存入随机结果列表
     detect = input('如果输入数字“0”则程序继续执行，否则退出程序:')  # 通过输入字符来判断是否继续产生随机数还是退出
     if (int(detect)) == 0:
