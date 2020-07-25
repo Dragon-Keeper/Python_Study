@@ -85,8 +85,8 @@ while count <= sum_count:  # 必须要有“=”在这里，否则单列时无�
     if count > sum_count:
         break
 # -----------------------------以上获取座位结果列表并随机出一个座位并存入随机结果列表
-    detect = input('如果输入数字“0”则程序继续执行，否则退出程序:')  # 通过输入字符来判断是否继续产生随机数还是退出
-    if (int(detect)) == 0:
+    detect = input('如果输入回车则程序继续执行，否则退出程序:')  # 通过输入字符来判断是否继续产生随机数还是退出
+    if (detect) == "":
         continue
     else:
         break
