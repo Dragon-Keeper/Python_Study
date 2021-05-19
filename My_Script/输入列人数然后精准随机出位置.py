@@ -10,6 +10,7 @@ res_lis_all_in_one = []  # 存放所有序号的列表
 ran_out = []
 su_co = 0  # 储存随机次数
 sum_count = 0  # 利用输入获取后面随机次数
+no_input_bak = 0 # 用于保存输入的数据在下次随机前提示
 
 
 def ra_no(no_input):
@@ -57,9 +58,11 @@ def ra_no(no_input):
     return res_lis_all_in_one
     # -----------------------------将随机数的产生过程做成函数---------------------
 
-
 while 1 > 0:
+    if no_input_bak != "":
+        print("刚才的数序：", no_input_bak)
     no_input = input('请输入想随机的数序:')  # 用正则表达式提示输入数据
+    no_input_bak = no_input # 保存输入的数据
     no_detect = no_input.isnumeric()  # 检测输入的数据是否全部由数字组成
     while no_detect is False:  # 如果输入的数字不是全部由数字组成，则进入循环
         print('你好，你输入的内容不是整数，请重新输入。')
@@ -76,15 +79,15 @@ while 1 > 0:
         # print(sum_count)  # 调试输出随机次数sum_count
     # -----------------------------------以下是用第一种方法来获取随机结果---------------
 
-    print("随机总数：", sum_count)  # 调试从列表随机出一个数值的结果
+    print("随机总数：", "[", sum_count, "]")
     count = 1
     su_co = sum_count
     while count <= sum_count:  # 必须要有“=”在这里，否则单列时无法随机出所有座位
         # print("随机结果列表：", res_out)  # 调试随机结果列表的输出
         ran_no = random.choice(res_out)  # 随机出一个列表内的数值
-        print("随机结果：", ran_no, "   ", end="")  # 调试从列表随机出一个数值的结果
+        print("随机结果：", "{", ran_no, "}", "  ", end="")  # 调试从列表随机出一个数值的结果
         su_co = su_co - 1  # 计算剩余还没有随机的数量
-        print("剩余总数：", su_co)  # 调试从列表随机出一个数值的结果
+        print("剩余总数：", "<", su_co, ">")  # 调试从列表随机出一个数值的结果
         res_out.remove(ran_no)  # 从全体列表里清除刚刚随机出来的结果
         # print("随机后的全体列表：", res_out)  # 调试显示随机后的全体列表
         # -------------------------下面加入退出循环判断，如果随机出全部数据则退出随机循环
