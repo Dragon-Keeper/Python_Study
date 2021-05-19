@@ -8,11 +8,13 @@ res_lis = []  # 储存序号数组转成的列表
 res_out = []  # 储存函数随机结果的列表
 res_lis_all_in_one = []  # 存放所有序号的列表
 ran_out = []
+su_co = 0  # 储存随机次数
 sum_count = 0  # 利用输入获取后面随机次数
 
 
 def ra_no(no_input):
-    no = round(float(no_input))  # 由于input函数输入的是str字符串型，必须转换为整数型才能进行随机运算，直接用int转换的话提示错误，所以先用float转换为浮点型，然后再用round取整去小数点
+    # 由于input函数输入的是str字符串型，必须转换为整数型才能进行随机运算，直接用int转换的话提示错误，所以先用float转换为浮点型，然后再用round取整去小数点
+    no = round(float(no_input))
     # -----------------------------以上为获取输入数序--------------------------------
 
     l_set = [int(item) for item in str(no)]
@@ -56,37 +58,60 @@ def ra_no(no_input):
     # -----------------------------将随机数的产生过程做成函数---------------------
 
 
-no_input = input('请输入想随机的数序:')  # 用正则表达式提示输入数据
-no_detect = no_input.isnumeric()  # 检测输入的数据是否全部由数字组成
-while no_detect is False:  # 如果输入的数字不是全部由数字组成，则进入循环
-    print('你好，你输入的内容不是整数，请重新输入。')
-    no_input = input('请输入想随机的数序:')  # 提示重新输入数据
-    no_detect = no_input.isnumeric()  # 再次检测输入的数据是否全部由数字组成
-    if no_detect is True:  # 如果输入的数字全部由数字组成
-        break  # 退出循环
+while 1 > 0:
+    no_input = input('请输入想随机的数序:')  # 用正则表达式提示输入数据
+    no_detect = no_input.isnumeric()  # 检测输入的数据是否全部由数字组成
+    while no_detect is False:  # 如果输入的数字不是全部由数字组成，则进入循环
+        print('你好，你输入的内容不是整数，请重新输入。')
+        no_input = input('请输入想随机的数序:')  # 提示重新输入数据
+        no_detect = no_input.isnumeric()  # 再次检测输入的数据是否全部由数字组成
+        if no_detect is True:  # 如果输入的数字全部由数字组成
+            break  # 退出循环
 
-res_out = ra_no(no_input)  # 通过函数获取座位结果列表，这句必须在while循环外，否则重复生成座位结果列表
+    res_out = ra_no(no_input)  # 通过函数获取座位结果列表，这句必须在while循环外，否则重复生成座位结果列表
 
-# --------------------------------下面这段利用输入获取后面随机次数sum_count-------
-for i in range(len(no_input)):  # 遍历输入数字字符串
-    sum_count = sum_count + int(no_input[i])  # 将字符转成int，求和
-    # print(sum_count)  # 调试输出随机次数sum_count
-# -----------------------------------以下是用第一种方法来获取随机结果---------------
+    # --------------------------------下面这段利用输入获取后面随机次数sum_count-------
+    for i in range(len(no_input)):  # 遍历输入数字字符串
+        sum_count = sum_count + int(no_input[i])  # 将字符转成int，求和
+        # print(sum_count)  # 调试输出随机次数sum_count
+    # -----------------------------------以下是用第一种方法来获取随机结果---------------
 
-count = 1
-while count <= sum_count:  # 必须要有“=”在这里，否则单列时无法随机出所有座位
-    # print("随机结果列表：", res_out)  # 调试随机结果列表的输出
-    ran_no = random.choice(res_out)  # 随机出一个列表内的数值
-    print("随机结果：", ran_no)  # 调试从列表随机出一个数值的结果
-    res_out.remove(ran_no)  # 从全体列表里清除刚刚随机出来的结果
-    # print("随机后的全体列表：", res_out)  # 调试显示随机后的全体列表
-    # -------------------------下面加入退出循环判断，如果随机出全部数据则退出随机循环
-    count = count + 1
-    if count > sum_count:
-        break
-# -----------------------------以上获取座位结果列表并随机出一个座位并存入随机结果列表
-    detect = input('如果输入回车则程序继续执行，否则退出程序:')  # 通过输入字符来判断是否继续产生随机数还是退出
-    if (detect) == "":
-        continue
-    else:
-        break
+    print("随机总数：", sum_count)  # 调试从列表随机出一个数值的结果
+    count = 1
+    su_co = sum_count
+    while count <= sum_count:  # 必须要有“=”在这里，否则单列时无法随机出所有座位
+        # print("随机结果列表：", res_out)  # 调试随机结果列表的输出
+        ran_no = random.choice(res_out)  # 随机出一个列表内的数值
+        print("随机结果：", ran_no, "   ", end="")  # 调试从列表随机出一个数值的结果
+        su_co = su_co - 1  # 计算剩余还没有随机的数量
+        print("剩余总数：", su_co)  # 调试从列表随机出一个数值的结果
+        res_out.remove(ran_no)  # 从全体列表里清除刚刚随机出来的结果
+        # print("随机后的全体列表：", res_out)  # 调试显示随机后的全体列表
+        # -------------------------下面加入退出循环判断，如果随机出全部数据则退出随机循环
+        count = count + 1
+        if count > sum_count:
+            print("All Done!")
+            set_no = set()  # 生成空白集合，否则后面生成的随机数无法合法写入集合，因为集合还没有被定义
+            list_set = []  # 建立空白列表
+            res_lis = []  # 储存序号数组转成的列表
+            res_out = []  # 储存函数随机结果的列表
+            res_lis_all_in_one = []  # 存放所有序号的列表
+            ran_out = []
+            su_co = 0  # 储存随机次数
+            sum_count = 0  # 利用输入获取后面随机次数
+            break
+
+    # -----------------------------以上获取座位结果列表并随机出一个座位并存入随机结果列表
+        detect = input('如果回车则程序继续执行，否则退出程序:')  # 通过输入字符来判断是否继续产生随机数还是退出
+        if (detect) == "":
+            continue
+        else:
+            set_no = set()  # 生成空白集合，否则后面生成的随机数无法合法写入集合，因为集合还没有被定义
+            list_set = []  # 建立空白列表
+            res_lis = []  # 储存序号数组转成的列表
+            res_out = []  # 储存函数随机结果的列表
+            res_lis_all_in_one = []  # 存放所有序号的列表
+            ran_out = []
+            su_co = 0  # 储存随机次数
+            sum_count = 0  # 利用输入获取后面随机次数
+            break
